@@ -118,22 +118,22 @@
                     </div>
                   </div>
                 </div>
-                <div class="navbar__menu">
-                  <div class="container">
-                    <nav class="navigation">
-                      {% url 'home' as home_url %}
-                      <ul class="nav navbar-nav{% if request.get_full_path == home_url %} no-border{% endif %}" >
-                        {% for category in categories %}
-                            <li class="nav-item">
-                              <a class="nav-link" href="{{ category.get_absolute_url }}">
-                                  {{ category }}
-                              </a>
-                            </li>
-                        {% endfor %}
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
+{#                <div class="navbar__menu">#}
+{#                  <div class="container">#}
+{#                    <nav class="navigation">#}
+{#                      {% url 'home' as home_url %}#}
+{#                      <ul class="nav navbar-nav{% if request.get_full_path == home_url %} no-border{% endif %}" >#}
+{#                        {% for category in categories %}#}
+{#                            <li class="nav-item">#}
+{#                              <a class="nav-link" href="{{ category.get_absolute_url }}">#}
+{#                                  {{ category }}#}
+{#                              </a>#}
+{#                            </li>#}
+{#                        {% endfor %}#}
+{#                      </ul>#}
+{#                    </nav>#}
+{#                  </div>#}
+{#                </div>#}
             </header>
         {% endblock %}
         <div class="container maincontent">
