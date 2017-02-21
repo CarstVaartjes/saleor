@@ -30,10 +30,10 @@
                 <div class="navbar__login hidden-sm-down">
                   <div class="container">
                     <div class="row">
-                      <div class="col-7">
+                      <div class="col-8">
                         <p class="text-left">{{ settings.header_text }}</p>
                       </div>
-                      <div class="col-6">
+                      <div class="col-7">
                         <ul class="float-right">
                           {% if user.is_authenticated %}
                             {% if user.is_staff %}
@@ -62,7 +62,9 @@
                               </a>
                             </li>
                           {% endif %}
-                            <div class="navbar__brand__cart float-right">
+                        </ul>
+                      </div>
+                    <div class="navbar__brand__cart">
                           <a class="cart__icon" href="{% url "cart:index" %}">
                             <span class="cart-label hidden-sm-down">
                                 {% trans "Your Cart" context "Top navbar link" %}
@@ -80,8 +82,6 @@
                           {% include 'cart-dropdown.html' %}
                           </div>
                         </div>
-                        </ul>
-                      </div>
                     </div>
                   </div>
                 </div>
