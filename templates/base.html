@@ -29,11 +29,11 @@
             <header class="navbar" role="navigation">
                 <div class="navbar__login hidden-sm-down">
                   <div class="container">
-                    <div class="row">
+                    <div class="row col-3">
                       <div class="col-1 float-left">
                         <p class="text-left">{{ settings.header_text }}</p>
                       </div>
-                      <div class="col-7 float-right">
+                      <div class="col-5 float-right">
                         <ul class="float-right">
                           {% if user.is_authenticated %}
                             {% if user.is_staff %}
