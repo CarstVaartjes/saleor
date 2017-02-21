@@ -70,15 +70,6 @@
                 <div class="navbar__brand">
                   <div class="container">
                     <div class="row no-gutters">
-                      <div class="col-8 col-md-4 navbar__logo">
-                        <div class="menu-icon-mobile hidden-md-up">
-                          <img class="navbar__brand__menu-toggle closed open" src="{% static "images/mobile-bar.svg" %}">
-                          <span>{% trans "menu" context "Hamburger button text" %}</span>
-                        </div>
-                        <a href="/">
-                          <img src="{% static "images/saleor-logo-black.svg" %}" alt="Testeor - Saleor demo store" height="38">
-                        </a>
-                      </div>
                       <div class="col-2 col-md-4 navbar__search static">
                         {% if SEARCH_IS_ENABLED %}
                           <img class="hidden-md-up mobile-search-icon float-right" src="{% static "images/search-icon.svg" %}">
@@ -117,23 +108,6 @@
                       </div>
                     </div>
                   </div>
-{#                </div>#}
-{#                <div class="navbar__menu">#}
-{#                  <div class="container">#}
-{#                    <nav class="navigation">#}
-{#                      {% url 'home' as home_url %}#}
-{#                      <ul class="nav navbar-nav{% if request.get_full_path == home_url %} no-border{% endif %}" >#}
-{#                        {% for category in categories %}#}
-{#                            <li class="nav-item">#}
-{#                              <a class="nav-link" href="{{ category.get_absolute_url }}">#}
-{#                                  {{ category }}#}
-{#                              </a>#}
-{#                            </li>#}
-{#                        {% endfor %}#}
-{#                      </ul>#}
-{#                    </nav>#}
-{#                  </div>#}
-{#                </div>#}
             </header>
         {% endblock %}
         <div class="container maincontent">
