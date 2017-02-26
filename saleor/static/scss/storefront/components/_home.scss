@@ -1,6 +1,6 @@
 .home {
   text-align: center;
-  color: $white;
+  //color: $white;
   h1 {
     font-weight: 300;
     text-transform: uppercase;
@@ -17,7 +17,7 @@
       display: table-cell;
       text-align: center;
       vertical-align: middle;
-      color: white
+      color: black
   }
   &--content {
     position:  absolute;
@@ -37,7 +37,7 @@
   }
   &__block1 {
     .home--square {
-      background-image: url('../../images/block1.jpg');
+      //background-image: url('../../images/block1.jpg');
       @include media-breakpoint-up(md) {
         &:before {
           padding-top: 50%;
@@ -48,13 +48,13 @@
   &__block2 {
     margin-top: $global-margin * 2;
     .home--square {
-      background-image: url('../../images/block2.jpg');
+      //background-image: url('../../images/block2.jpg');
     }
   }
   &__block3 {
     margin-top: $global-margin * 2;
     .home--square {
-      background-image: url('../../images/block3.jpg');
+      //background-image: url('../../images/block3.jpg');
     }
   }
   &__featured {

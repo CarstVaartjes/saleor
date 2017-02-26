@@ -5,7 +5,7 @@
       max-height: 30px;
     }
   }
-  @media (max-width: 370px) { 
+  @media (max-width: 370px) {
     img {
       max-height: 25px;
     }
@@ -58,7 +58,7 @@
     }
   }
   &__brand {
-    background-color: $light-gray;
+    //background-color: $light-gray;
     @include media-breakpoint-down(sm) {
       position: fixed;
       top: 0;
@@ -223,7 +223,7 @@
             font-size: 1.5rem;
             &:hover {
               color: rgba($body-color, 0.6);
-              
+
             }
           }
         }

@@ -102,7 +102,7 @@
                             <span class="cart-label hidden-sm-down">
                                 {% trans "Your Cart" context "Top navbar link" %}
                             </span>
-                            <img class="navbar__brand__cart__icon" src="{% static "images/cart.svg" %}" alt="Cart">
+                            <img class="navbar__brand__cart__icon" src="{% static "images/cart-70.png" %}" alt="Cart">
                             <span class="badge {% if not cart_counter %}empty{% endif %}">
                               {% if cart_counter %}
                                 {{ cart_counter }}
@@ -127,11 +127,11 @@
                             <li class="nav-item">
                               <a class="nav-link" href="/">Home</a>
                             </li>
-                          {% for category in categories %}
-                            <li class="nav-item">
-                              <a class="nav-link" href={{ category.get_absolute_url }}>Our Products</a>
-                            </li>
-                          {% endfor %}
+{#                          {% for category in categories %}#}
+{#                            <li class="nav-item">#}
+{#                              <a class="nav-link" href={{ category.get_absolute_url }}>Our Products</a>#}
+{#                            </li>#}
+{#                          {% endfor %}#}
                             <li class="nav-item">
                               <a class="nav-link" href="how_it_works">Ordering</a>
                             </li>
@@ -162,8 +162,9 @@
             {% endblock content %}
         </div>
         {% block footer %}
-            <footer class="footer">
+            <footer class="footer" >
                 <div class="container">
+                  <div class="row home__block1"></div>
                   <div class="row">
                     <div>
                         <img src="{% static "images/spoon_horizontal.png" %}" height="150px">
@@ -172,9 +173,14 @@
                         <img src="{% static "images/happy-baker-text.png" %}" height="150px">
                     </div>
                     <div class="float-right">
+                        <div>
                       <a target="_blank" rel="noopener" href="https://www.facebook.com/The-Happy-Baker-138412190005510/">
-                        <img src="{% static "images/fb-icon.svg" %}" height="75px">
-                      </a>
+                        <img src="{% static "images/fb-icon-50.png" %}" height="50px">
+                      </a></div>
+                        <div>
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/The-Happy-Baker-138412190005510/">
+                        <img src="{% static "images/ig-icon-50.png" %}" height="50px">
+                      </a></div>
                     </div>
                   </div>
                 </div>
