@@ -35,6 +35,16 @@
       padding-top: 100%;
     }
   }
+  &__image1 {
+    .home--square {
+      background-image: url('../../images/happy-baker-wide.png');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
+    }
+  }
   &__block1 {
     .home--square {
       //background-image: url('../../images/block1.jpg');
