@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    <div class="home">
+      <div class="row">
+        <div class="col-sm-12 home__block1">
+          <div class="home--square">
+            <div class="home--content">
+              <div class="home--content-wrapper">
+                <div class="home--content-inner">
+                  <h1>{% trans "Ordering" context "Homepage title" %}</h1>
+                    <h2>{% trans "We want to offer you only the best and freshest product." context "Homepage title" %}</h2>
+                    <h2>{% trans "Your product is only made after your order is placed. If you order Monday to Friday before 12 pm you can pick it up the next day from 10 a.m. Sundays we are closed" context "Homepage title" %}</h2>
+                    <h2>{% trans "Please note, we have a maximum amount of orders per day. You can check in our calendar the availability or even order in advance." context "Homepage title" %}</h2>
+
+                  <h1>{% trans "Payments" context "Homepage title" %}</h1>
+                    <h2>{% trans "You can pay through ideal." context "Homepage title" %}</h2>
+
+                  <h1>{% trans "Pick up & Deliveries" context "Homepage title" %}</h1>
+                    <h2>{% trans "Your product can be picked up in central Amstelveen." context "Homepage title" %}</h2>
+                    <h2>{% trans "For orders above 50 euro, delivery may be available in Amstelveen and surroundings. Please contact us for more information." context "Homepage title" %}</h2>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}
