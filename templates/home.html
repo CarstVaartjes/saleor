@@ -3,6 +3,21 @@
 {% load staticfiles %}
 
 {% block content %}
+    <div class="home">
+      <div class="row">
+        <div class="col-sm-12 home__block1">
+          <div class="home--square">
+            <div class="home--content">
+              <div class="home--content-wrapper">
+                <div class="home--content-inner">
+                    <h1>{% trans "Welcome to the Happy Baker website!" context "Homepage title" %}</h1>
+                  <p>{% trans "Homemade, artisan and fresh quiches and cheesecakes are just few clicks away…" context "Homepage title" %}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <div class="home">
       <div class="row">
@@ -25,8 +40,6 @@
             <div class="home--content">
               <div class="home--content-wrapper">
                 <div class="home--content-inner">
-                    <h1>{% trans "Welcome to the Happy Baker website!" context "Homepage title" %}</h1>
-                  <h2>{% trans "Homemade, artisan and fresh quiches and cheesecakes are just few clicks away…" context "Homepage title" %}</h2>
                     <h2>{% trans "Enjoy the experience!" context "Homepage title" %}</h2>
                 </div>
               </div>
