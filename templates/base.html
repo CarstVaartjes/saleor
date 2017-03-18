@@ -40,26 +40,26 @@
                             {% if user.is_staff %}
                               <li>
                                 <a href="{% url "dashboard:index" %}" target="_blank" rel="noopener">
-                                    {% trans "Dashboard" context "Top navbar link text" %}
+                                    {% trans "Dashboard" context "Main navigation item" %}
                                 </a>
                               </li>
                             {% endif %}
                             <li>
                               <a href="{% url "profile:details" %}">
-                                  {% trans "Your account" context "Top navbar link text" %}</a>
+                                  {% trans "Your account" context "Main navigation item" %}</a>
                             </li>
                             <li>
                               <a href="{% url "account_logout" %}">
-                                  {% trans "Log out" context "Top navbar link text" %}</a>
+                                  {% trans "Log out" context "Main navigation item" %}</a>
                             </li>
                           {% else %}
                             <li>
                               <a href="{% url "account_signup" %}">
-                                  {% trans "Register" context "Top navbar link text" %}</a>
+                                  {% trans "Register" context "Main navigation item" %}</a>
                             </li>
                             <li>
                               <a href="{% url "account_login" %}">
-                                  {% trans "Log in" context "Top navbar link text" %}
+                                  {% trans "Log in" context "Main navigation item" %}
                               </a>
                             </li>
                           {% endif %}
@@ -72,8 +72,8 @@
                   <div class="container">
                     <div class="row no-gutters">
                       <div class="col-8 col-md-4 navbar__logo">
-                        <div class="menu-icon-mobile hidden-md-up">
-                          <img class="navbar__brand__menu-toggle closed open" src="{% static "images/mobile-bar.svg" %}">
+                        <div class="menu-icon-mobile hidden-md-up navbar__brand__menu-toggle closed open">
+                          <svg data-src="{% static "images/mobile_menu.svg" %}" width="28px" height="20px" />
                           <span>{% trans "menu" context "Hamburger button text" %}</span>
                         </div>
                         <a href="/">
@@ -82,16 +82,16 @@
                       </div>
                       <div class="col-2 col-md-4 navbar__search static">
                         {% if SEARCH_IS_ENABLED %}
-                          <img class="hidden-md-up mobile-search-icon float-right" src="{% static "images/search-icon.svg" %}">
-                        {% endif %}
-                        {% if SEARCH_IS_ENABLED %}
-                          <form class="form-inline navbar__brand__search" action="{% url "search:search" %}">
+                          <div class="hidden-md-up mobile-search-icon">
+                            <svg data-src="{% static "images/search.svg" %}" width="30" height="30" />
+                          </div>
+                          <form class="form-inline search-form" action="{% url "search:search" %}">
                             <div class="mobile-close-search hidden-md-up">
-                              <img src="{% static "images/close-icon.svg" %}">
+                              <svg data-src="{% static "images/close.svg" %}" width="30" height="30" />
                             </div>
-                            <input class="form-control search-input" type="text" name="q" value="{% if query %}{{ query }}{% endif %}" placeholder="{% trans "Search for product" %}">
+                            <input class="form-control" type="text" name="q" value="{% if query %}{{ query }}{% endif %}" placeholder="{% trans "Search for product" %}">
                             <button class="btn btn-link" type="submit">
-                              <img src="{% static "images/search-icon.svg" %}">
+                              <svg data-src="{% static "images/search.svg" %}" width="30" height="30" />
                             </button>
                           </form>
                         {% endif %}
@@ -100,9 +100,11 @@
                         <div class="navbar__brand__cart float-right">
                           <a class="cart__icon" href="{% url "cart:index" %}">
                             <span class="cart-label hidden-sm-down">
-                                {% trans "Your Cart" context "Top navbar link" %}
+                                {% trans "Your Cart" context "Main navigation item" %}
                             </span>
-                            <img class="navbar__brand__cart__icon" src="{% static "images/cart-70.png" %}" alt="Cart">
+                            <div class="navbar__brand__cart__icon">
+                            <img src="{% static "images/cart-70.png" %}" alt="Cart" width="35" height="30">
+                            </div>
                             <span class="badge {% if not cart_counter %}empty{% endif %}">
                               {% if cart_counter %}
                                 {{ cart_counter }}
@@ -112,7 +114,7 @@
                             </span>
                           </a>
                           <div class="cart-dropdown hidden-md-down">
-                          {% include 'cart-dropdown.html' %}
+                            {% include 'cart-dropdown.html' %}
                           </div>
                         </div>
                       </div>

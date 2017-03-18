@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% load gross from prices_i18n %}
 {% load i18n %}
-{% load static from staticfiles %}
+{% load staticfiles %}
 {% load render_bundle from webpack_loader %}
+{% load get_thumbnail from product_images %}
 
 {% block title %}{% trans "Your cart" context "Cart page title" %} — {{ block.super }}{% endblock %}
 
 {% block breadcrumb %}
 <ul class="breadcrumbs list-unstyled">
-  <li><a href="/">{% trans "Home" context "Cart breadcrumb" %}</a></li>
+  <li><a href="/">{% trans "Home" context "Main navigation item" %}</a></li>
   <li><a href="{% url 'cart:index' %}">{% trans "Cart" context "Cart breadcrumb" %}</a></li>
 </ul>
 {% endblock breadcrumb %}
@@ -20,29 +21,27 @@
 </div>
 <div class="cart">
   {% if cart_lines %}
-    <div class="cart__table-header hidden-sm-down">
+    <div class="table__header hidden-sm-down">
       <div class="row">
         <div class="col-md-7">
-          <h3>{% trans "Product" context "Cart table header" %}</h3>
+          <small>{% trans "Product" context "Cart table header" %}</small>
         </div>
         <div class="col-md-3">
-          <h3>{% trans "Quantity" context "Cart table header" %}</h3>
+          <small>{% trans "Quantity" context "Cart table header" %}</small>
         </div>
-        <div class="col-md-2">
-          <h3 class="text-right">{% trans "Price" context "Cart table header" %}</h3>
+        <div class="col-md-2 text-right">
+          <small>{% trans "Price" context "Cart table header" %}</small>
         </div>
       </div>
     </div>
     {% for line in cart_lines %}
-      <div class="cart__line{% if forloop.last %} last{% endif %}">
+      <div class="cart__line{% if forloop.last %} last{% endif %} table__row">
         <div class="row">
           <div class="col-7 cart__line__product">
-            <a href="{{ line.variant.get_absolute_url }}">
-              {% if line.variant.product.images.first %}
-                <img src="{{ line.variant.product.images.first.image.crop.60x60 }}" alt="">
-              {% else %}
-                <img src="{% static 'images/placeholder60x60.png' %}" alt="">
-              {% endif %}
+            <a class="link--clean" href="{{ line.variant.get_absolute_url }}">
+              <img src="{% get_thumbnail line.variant.product.images.first.image method="crop" size="60x60" %}" 
+                   srcset="{% get_thumbnail line.variant.product.images.first.image method="crop" size="60x60" %} 1x, {% get_thumbnail line.variant.product.images.first.image method="crop" size="120x120" %} 2x" 
+                   alt="">
               <p>{{ line.variant.product }}
                 <br><small>{{ line.variant }}</small></p>
             </a>
@@ -56,11 +55,13 @@
                   </div>
                   {% csrf_token %}
                 </form>
-                <img class="cart-item-delete" src="{% static 'images/icon_delete.svg' %}">
+                <span class="cart-item-delete">
+                  <svg data-src="{% static "images/delete.svg" %}" height="20px" width="20px" />
+                </span>
                 <small class="cart__line__quantity-error text-danger"></small>
               </div>
               <div class="cart-item-subtotal col-md-5 col-12" data-product-id="{{ line.variant.pk }}">
-                <h3 class="text-right">{% gross line.get_total html=True %}</h3>
+                <p class="text-right">{% gross line.get_total html=True %}</p>
               </div>
             </div>
           </div>
@@ -70,8 +71,8 @@
     <div class="cart__total">
       <div class="row">
         <div class="col-8 cart__total__subtotal">
-          <h3>{% trans "Subtotal" context "Cart totals" %}</h3>
-          <p>({% trans "Delivery calculated at checkout" context "Cart totals help text" %})</p>
+          <h3>{% trans "Subtotal" context "Order subtotal" %}</h3>
+          <p>{% trans "(Delivery calculated at checkout)" context "Cart totals help text" %}</p>
         </div>
         <div class="col-4">
           <p class="cart-total text-right"
@@ -91,7 +92,7 @@
         </div>
       </div>
     </div>
-    <div class="cart__checkout row">
+    <div class="row">
       <div class="col-md-12">
         <a href="{% url "checkout:login" %}" class="btn primary float-md-right">
           {% trans "Checkout" context "Cart primary action" %}
@@ -112,7 +113,7 @@
           </div>
           <div class="col-6 cart__delivery-info__price">
             {% for option in default_country_options %}
-              <p class="text-right">{% gross option.price %}</p>
+              <p class="text-right">{% gross option.price html=True %}</p>
             {% endfor %}
           </div>
         </div>

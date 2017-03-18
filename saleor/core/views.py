@@ -1,5 +1,6 @@
 from django.template.response import TemplateResponse
 
+from ..dashboard.views import staff_member_required
 from ..product.utils import products_with_availability, products_for_homepage
 
 
@@ -10,6 +11,11 @@ def home(request):
     return TemplateResponse(
         request, 'home.html',
         {'products': products, 'parent': None})
+
+
+@staff_member_required
+def styleguide(request):
+    return TemplateResponse(request, 'styleguide.html')
 
 
 def how_it_works(request):
@@ -28,3 +34,5 @@ def allergene_info(request):
     return TemplateResponse(
         request, 'allergene_info.html',
         {'parent': None})
+
+

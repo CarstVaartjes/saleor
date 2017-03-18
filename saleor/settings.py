@@ -40,6 +40,7 @@ DATABASES = {
 
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
+LOCALE_PATHS = [os.path.join(PROJECT_ROOT, 'locale')]
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -73,7 +74,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     ('assets', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'assets')),
-    ('images', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'images'))
+    ('images', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'images')),
+    ('dashboard', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'dashboard'))
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -95,6 +97,8 @@ context_processors = [
     'saleor.core.context_processors.search_enabled',
     'saleor.site.context_processors.settings',
     'saleor.core.context_processors.webpage_schema',
+    'social_django.context_processors.backends',
+    'social_django.context_processors.login_redirect',
 ]
 
 loaders = [
@@ -130,6 +134,7 @@ MIDDLEWARE_CLASSES = [
     'saleor.core.middleware.GoogleAnalytics',
     'saleor.core.middleware.CountryMiddleware',
     'saleor.core.middleware.CurrencyMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 INSTALLED_APPS = [
@@ -174,8 +179,7 @@ INSTALLED_APPS = [
     'materializecssform',
     'rest_framework',
     'webpack_loader',
-    'allauth',
-    'allauth.account',
+    'social_django',
     'django_countries',
 ]
 
@@ -303,17 +307,28 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
     'defaults': [
-        ('list_view', 'crop__100x100'),
-        ('dashboard', 'crop__400x400'),
-        ('product_page_mobile', 'crop__680x680'),
-        ('product_page_big', 'crop__750x750'),
-        ('product_page_thumb', 'crop__280x280')]}
+        ('product_gallery', 'crop__540x540'),
+        ('product_gallery_2x', 'crop__1080x1080'),
+        ('product_small', 'crop__60x60'),
+        ('product_small_2x', 'crop__120x120'),
+        ('product_list', 'crop__255x255'),
+        ('product_list_2x', 'crop__510x510')]}
 
 VERSATILEIMAGEFIELD_SETTINGS = {
     # Images should be pre-generated on Production environment
     'create_images_on_demand': ast.literal_eval(
         os.environ.get('CREATE_IMAGES_ON_DEMAND', 'True')),
 }
+
+PLACEHOLDER_IMAGES = {
+    60: 'images/placeholder60x60.png',
+    120: 'images/placeholder120x120.png',
+    255: 'images/placeholder255x255.png',
+    540: 'images/placeholder540x540.png',
+    1080: 'images/placeholder1080x1080.png'
+}
+
+DEFAULT_PLACEHOLDER = 'images/placeholder255x255.png'
 
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -326,17 +341,7 @@ WEBPACK_LOADER = {
             r'.+\.map']}}
 
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_SESSION_REMEMBER = False
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
-ACCOUNT_FORMS = {
-    'reset_password_from_key': 'saleor.userprofile.forms.SetPasswordForm'
-}
+LOGOUT_ON_PASSWORD_CHANGE = False
 
 
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
@@ -374,3 +379,27 @@ GRAPHENE = {
 }
 
 SITE_SETTINGS_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'saleor.registration.backends.facebook.CustomFacebookOAuth2',
+    'saleor.registration.backends.google.CustomGoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_PIPELINE = [
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+]
+
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, email'}

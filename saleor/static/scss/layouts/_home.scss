@@ -1,0 +1,93 @@
+.home {
+  text-align: center;
+  //color: $white;
+  h1 {
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+  .btn {
+    margin-top: $global-margin;
+  }
+  &--content-wrapper {
+     display: table;
+     width: 100%;
+     height: 100%;
+  }
+  &--content-inner {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+      padding-left: $global-padding;
+      padding-right: $global-padding;
+  }
+  &--content {
+    position:  absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  &--square {
+    background-size: cover;
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+  }
+  &__image1 {
+    .home--square {
+      background-image: url('../../images/img_assortment_1.jpg');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
+    }
+  }
+  &__block1 {
+    .home--square {
+      }
+  }
+  &__cat1 {
+    .home--square {
+      background-image: url('../../images/img_cheesecake_1.jpg');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
+    }
+  }
+  &__cat2 {
+    margin-top: $global-margin * 2;
+    .home--square {
+      background-image: url('../../images/img_quiche_4.jpg');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
+    }
+  }
+  &__cat3 {
+    margin-top: $global-margin * 2;
+    .home--square {
+      background-image: url('../../images/img_pie_1.jpg');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
+    }
+  }
+  &__featured {
+    color: $body-color;
+    h2 {
+      text-transform: uppercase;
+      margin: $global-margin * 2 0;
+    }
+  }
+}
