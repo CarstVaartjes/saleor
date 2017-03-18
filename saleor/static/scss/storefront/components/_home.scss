@@ -37,7 +37,7 @@
   }
   &__image1 {
     .home--square {
-      background-image: url('../../images/happy-baker-wide.png');
+      background-image: url('../../images/img_assortment_1.jpg');
       @include media-breakpoint-up(md) {
         &:before {
           padding-top: 50%;
@@ -47,7 +47,11 @@
   }
   &__block1 {
     .home--square {
-      //background-image: url('../../images/block1.jpg');
+      }
+  }
+  &__cat1 {
+    .home--square {
+      background-image: url('../../images/img_cheesecake_1.jpg');
       @include media-breakpoint-up(md) {
         &:before {
           padding-top: 50%;
@@ -55,16 +59,26 @@
       }
     }
   }
-  &__block2 {
+  &__cat2 {
     margin-top: $global-margin * 2;
     .home--square {
-      //background-image: url('../../images/block2.jpg');
+      background-image: url('../../images/img_quiche_4.jpg');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
     }
   }
-  &__block3 {
+  &__cat3 {
     margin-top: $global-margin * 2;
     .home--square {
-      //background-image: url('../../images/block3.jpg');
+      background-image: url('../../images/img_pie_1.jpg');
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 50%;
+        }
+      }
     }
   }
   &__featured {

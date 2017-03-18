@@ -2,7 +2,24 @@
 {% load i18n %}
 {% load staticfiles %}
 
+
 {% block content %}
+
+    <div class="home">
+      <div class="row">
+        <div class="col-sm-12 home__image1">
+          <div class="home--square" id="img_rotation">
+            <div class="home--content">
+              <div class="home--content-wrapper">
+                <div class="home--content-inner">
+                    &nbsp
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <div class="home">
       <div class="row">
         <div class="col-sm-12 home__block1">
@@ -21,31 +38,70 @@
 
     <div class="home">
       <div class="row">
-        <div class="col-sm-12 home__image1">
+        <div class="col-sm-12 home__cat1">
           <div class="home--square">
             <div class="home--content">
               <div class="home--content-wrapper">
                 <div class="home--content-inner">
-                    &nbsp
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <div class="home">
-      <div class="row">
-        <div class="col-sm-12 home__block1">
-          <div class="home--square">
-            <div class="home--content">
-              <div class="home--content-wrapper">
-                <div class="home--content-inner">
-                    <h2>{% trans "Enjoy the experience!" context "Homepage title" %}</h2>
+                    <h1>{% trans "Cheesecakes" context "Homepage title" %}</h1>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+        <div class="home">
+      <div class="row">
+        <div class="col-sm-12 home__cat2">
+          <div class="home--square">
+            <div class="home--content">
+              <div class="home--content-wrapper">
+                <div class="home--content-inner">
+                    <h1>{% trans "Quiches" context "Homepage title" %}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="home">
+      <div class="row">
+        <div class="col-sm-12 home__cat3">
+          <div class="home--square">
+            <div class="home--content">
+              <div class="home--content-wrapper">
+                <div class="home--content-inner">
+                    <h1>{% trans "Pies" context "Homepage title" %}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script>
+$(document).ready(function() {
+    var images = [
+        "url({% static "images/img_assortment_2.jpg" %})",
+        "url({% static "images/img_cheesecake_1.jpg" %})",
+        "url({% static "images/img_assortment_1.jpg" %})"
+    ];
+
+    var i = 0;
+
+    setInterval(function() {
+        alert('hoi');
+        if(links.length == i){
+            i = 0;
+        }
+        else {
+            document.getElementById("img_rotation").style.backgroundImage = images[i];
+            i++;
+        }
+    }, 1000);
+});
+</script>
 
 {% endblock %}
