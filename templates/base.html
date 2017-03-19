@@ -77,7 +77,7 @@
                           <span>{% trans "menu" context "Hamburger button text" %}</span>
                         </div>
                         <a href="/">
-                             <img src="{% static "images/happy-baker-main.png" %}" alt="The Happy Baker" height="150px">
+                             <img src="{% static "images/happy-baker-main.png" %}" alt="The Happy Baker" height="50px">
                         </a>
                       </div>
                       <div class="col-2 col-md-4 navbar__search static">
@@ -135,13 +135,13 @@
 {#                            </li>#}
 {#                          {% endfor %}#}
                             <li class="nav-item">
-                              <a class="nav-link" href="how_it_works">Ordering</a>
+                              <a class="nav-link" href="/how_it_works">Ordering</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="allergene_info">Allergene Info</a>
+                              <a class="nav-link" href="/allergene_info">Allergene Info</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="about_me">About me</a>
+                              <a class="nav-link" href="/about_me">About me</a>
                             </li>
                       </ul>
                     </nav>
@@ -163,7 +163,30 @@
             {% block content %}
             {% endblock content %}
         </div>
+
         {% block footer %}
+
+            <div class="home">
+              <div class="row">
+                {% for category in categories %}
+                <div class="col-sm-4 home__cat{{ forloop.counter }}">
+                  <div class="home--square">
+                    <div class="home--content">
+                      <div class="home--content-wrapper">
+                        <div class="home--content-inner">
+                            <h1>{{ category }}</h1>
+                            <a class="btn btn-secondary home__button" href={{ category.get_absolute_url }}>
+                                {% trans "Shop now" context "Homepage action" %}
+                            </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {%  endfor %}
+              </div>
+            </div>
+
             <footer class="footer" >
                 <div class="container">
                   <div class="row home__block1"></div>
