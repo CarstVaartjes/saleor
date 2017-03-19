@@ -28,7 +28,7 @@
               <div class="home--content-wrapper">
                 <div class="home--content-inner">
                     <h1 style="color:black">{% trans "Welcome to the Happy Baker website!" context "Homepage title" %}</h1>
-                  <p style="color:black">{% trans "Homemade, artisan and fresh quiches and cheesecakes are just few clicks away…" context "Homepage title" %}</p>
+                  <p style="color:black">{% trans "Homemade, artisan and fresh food is just a few clicks away…" context "Homepage title" %}</p>
                 </div>
               </div>
             </div>
@@ -38,31 +38,15 @@
 
     <div class="home">
       <div class="row">
-        <div class="col-sm-12 home__cat1">
-          <div class="home--square">
-            <div class="home--content">
-              <div class="home--content-wrapper">
-                <div class="home--content-inner">
-                    <h1>{% trans "Cheesecakes" context "Homepage title" %}</h1>
-                    <a class="btn btn-secondary home__button" href="#">
-                        {% trans "Shop now" context "Homepage action" %}
-                    </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-        <div class="home">
-      <div class="row">
-        <div class="col-sm-12 home__cat2">
+        {% for category in categories %}
+        <div class="col-sm-4 home__cat{{ forloop.counter }}">
           <div class="home--square">
             <div class="home--content">
               <div class="home--content-wrapper">
                 <div class="home--content-inner">
-                    <h1>{% trans "Quiches" context "Homepage title" %}</h1>
-                    <a class="btn btn-secondary home__button" href="#">
+                    <h1>{{ category }}</h1>
+                    <a class="btn btn-secondary home__button" href={{ category.get_absolute_url }}>
                         {% trans "Shop now" context "Homepage action" %}
                     </a>
                 </div>
@@ -70,25 +54,10 @@
             </div>
           </div>
         </div>
-      </div>
+        {%  endfor %}
 
-        <div class="home">
-      <div class="row">
-        <div class="col-sm-12 home__cat3">
-          <div class="home--square">
-            <div class="home--content">
-              <div class="home--content-wrapper">
-                <div class="home--content-inner">
-                    <h1>{% trans "Pies" context "Homepage title" %}</h1>
-                    <a class="btn btn-secondary home__button" href="#">
-                        {% trans "Shop now" context "Homepage action" %}
-                    </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+    </div>
 
 <script>
 $(document).ready(function() {

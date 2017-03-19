@@ -49,9 +49,15 @@
   }
   &__block1 {
     .home--square {
+      @include media-breakpoint-up(md) {
+        &:before {
+          padding-top: 15%;
+        }
       }
+    }
   }
   &__cat1 {
+    //margin-top: $global-margin;
     .home--square {
       background-image: url('../images/img_cheesecake_1.jpg');
       @include media-breakpoint-up(md) {
@@ -62,7 +68,7 @@
     }
   }
   &__cat2 {
-    margin-top: $global-margin * 2;
+    //margin-top: $global-margin;
     .home--square {
       background-image: url('../images/img_quiche_4.jpg');
       @include media-breakpoint-up(md) {
@@ -73,7 +79,7 @@
     }
   }
   &__cat3 {
-    margin-top: $global-margin * 2;
+    //margin-top: $global-margin;
     .home--square {
       background-image: url('../images/img_pie_1.jpg');
       @include media-breakpoint-up(md) {
