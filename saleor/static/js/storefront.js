@@ -365,6 +365,7 @@ $(document).ready(function() {
   })
 
   //Carrousel => TODO: replace it with something better as bootsrap carrousel or similar
+  //http://kenwheeler.github.io/slick/
     var images = [
         "/static/images/img_assortment_2.jpg",
         "/static/images/img_cheesecake_1.jpg",
