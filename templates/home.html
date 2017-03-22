@@ -4,7 +4,6 @@
 
 
 {% block content %}
-
     <div class="home">
       <div class="row">
         <div class="col-sm-12 home__image1">
@@ -36,27 +35,5 @@
         </div>
       </div>
 
-<script>
-$(document).ready(function() {
-    var images = [
-        "url({% static "images/img_assortment_2.jpg" %})",
-        "url({% static "images/img_cheesecake_1.jpg" %})",
-        "url({% static "images/img_assortment_1.jpg" %})"
-    ];
-
-    var i = 0;
-
-    setInterval(function() {
-        alert('hoi');
-        if(links.length == i){
-            i = 0;
-        }
-        else {
-            document.getElementById("img_rotation").style.backgroundImage = images[i];
-            i++;
-        }
-    }, 1000);
-});
-</script>
 
 {% endblock %}
