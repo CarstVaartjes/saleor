@@ -21,7 +21,7 @@
         transition: 0.3s;
         text-transform: uppercase;
         display: inline-block;
-        padding: $global-padding * 1.5;
+        padding: $global-padding * 0.5;
         font-size: 1.5rem;
         &:hover {
           color: rgba($body-color, 0.6);
@@ -33,6 +33,19 @@
 }
 .navbar {
   padding: 0;
+
+  .logo_column{
+    text-align: center;
+    img{
+      height: 150px;
+      width: 150px;
+    }
+
+  }
+  .navbar__menu{
+    margin: auto;
+  }
+
   @include media-breakpoint-down(sm) {
     svg {
       max-height: 30px;
