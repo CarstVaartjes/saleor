@@ -25,129 +25,106 @@
     </head>
 
     <body>
-        {% block header %}
-            <header class="navbar" role="navigation">
-                <div class="navbar__login">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-1 menu-icon-mobile hidden-md-up navbar__brand__menu-toggle closed open">
-                          <svg data-src="{% static "images/mobile_menu.svg" %}" width="28px" height="20px"/>
-                          <span>{% trans "menu" context "Hamburger button text" %}</span>
-                      </div>
-                      <div class="col-md-2 col-sm-11 logo_column">
-                          <a href="/">
-                              <img src="{% static "images/happy-baker.png" %}" alt="The Happy Baker">
-                          </a>
-                          <!--<p class="text-left">{{ settings.header_text }}</p>-->
-                      </div>
-                    <div class="navbar__menu col-7">
-                      <div class="container">
-                        <nav class="navigation">
-                          {% url 'home' as home_url %}
-                          <ul class="nav navbar-nav{% if request.get_full_path == home_url %} no-border{% endif %}" >
-                            {% for category in categories %}
-                                <li class="nav-item">
-                                  <a class="nav-link" href="{{ category.get_absolute_url }}">
-                                      {{ category }}
-                                  </a>
-                                </li>
-                            {% endfor %}
-                          </ul>
-                        </nav>
-                      </div>
-                    </div>
-
-                      <div class="col-3 hidden-sm-down">
-                        <ul class="float-right">
-                          {% if user.is_authenticated %}
-                            {% if user.is_staff %}
-                              <li>
-                                <a href="{% url "dashboard:index" %}" target="_blank" rel="noopener">
-                                    {% trans "Dashboard" context "Main navigation item" %}
-                                </a>
-                              </li>
-                            {% endif %}
-                            <li>
-                              <a href="{% url "profile:details" %}">
-                                  {% trans "Your account" context "Main navigation item" %}</a>
-                            </li>
-                            <li>
-                              <a href="{% url "account_logout" %}">
-                                  {% trans "Log out" context "Main navigation item" %}</a>
-                            </li>
-                          {% else %}
-                            <li>
-                              <a href="{% url "account_signup" %}">
-                                  {% trans "Register" context "Main navigation item" %}</a>
-                            </li>
-                            <li>
-                              <a href="{% url "account_login" %}">
-                                  {% trans "Log in" context "Main navigation item" %}
-                              </a>
-                            </li>
-                          {% endif %}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            <!--
-                <div class="navbar__brand">
-                  <div class="container">
+    {% block header %}
+        <header class="navbar" role="navigation">
+            <div class="navbar__login">
+                <div class="container">
                     <div class="row no-gutters">
-                      <div class="col-8 col-md-4 navbar__logo">
-                        <div class="menu-icon-mobile hidden-md-up navbar__brand__menu-toggle closed open">
-                          <svg data-src="{% static "images/mobile_menu.svg" %}" width="28px" height="20px" />
-                          <span>{% trans "menu" context "Hamburger button text" %}</span>
+                        <div class="col-1 menu-icon-mobile hidden-md-up navbar__brand__menu-toggle closed open">
+                            <svg data-src="{% static "images/mobile_menu.svg" %}" width="28px" height="20px"/>
+                            <span>{% trans "menu" context "Hamburger button text" %}</span>
                         </div>
-                        <a href="/">
-                            <img src="{% static "images/happy-baker.png" %}" alt="The Happy Baker" class="img-fluid" max-width="100%" height="auto" max-height="50%">
-                        </a>
-                      </div>
-                      <div class="col-2 col-md-4 navbar__search static">
-                        {% if SEARCH_IS_ENABLED %}
-                          <div class="hidden-md-up mobile-search-icon">
-                            <svg data-src="{% static "images/search.svg" %}" width="30" height="30" />
-                          </div>
-                          <form class="form-inline search-form" action="{% url "search:search" %}">
-                            <div class="mobile-close-search hidden-md-up">
-                              <svg data-src="{% static "images/close.svg" %}" width="30" height="30" />
-                            </div>
-                            <input class="form-control" type="text" name="q" value="{% if query %}{{ query }}{% endif %}" placeholder="{% trans "Search for product" %}">
-                            <button class="btn btn-link" type="submit">
-                              <svg data-src="{% static "images/search.svg" %}" width="30" height="30" />
-                            </button>
-                          </form>
-                        {% endif %}
-                      </div>
-                      <div class="col-2 col-md-4">
-                        <div class="navbar__brand__cart float-right">
-                          <a class="cart__icon" href="{% url "cart:index" %}">
-                            <span class="cart-label hidden-sm-down">
-                                {% trans "Your Cart" context "Main navigation item" %}
-                            </span>
-                            <div class="navbar__brand__cart__icon">
-                              <svg data-src="{% static "images/cart.svg" %}" width="35" height="30" />
-                            </div>
-                            <span class="badge {% if not cart_counter %}empty{% endif %}">
-                              {% if cart_counter %}
-                                {{ cart_counter }}
-                              {% else %}
-                                0
-                              {% endif %}
-                            </span>
-                          </a>
-                          <div class="cart-dropdown hidden-md-down">
-                            {% include 'cart-dropdown.html' %}
-                          </div>
+                        <div class="col-md-2 col-sm-8 col-8 logo_column">
+                            <a href="/">
+                                <img class="img-fluid" src="{% static "images/happy-baker.png" %}"
+                                     alt="The Happy Baker">
+                            </a>
+                            <!--<p class="text-left">{{ settings.header_text }}</p>-->
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                -->
+                        <div class="navbar__menu col-7 hidden-sm-down">
+                            <div class="container">
+                                <nav class="navigation">
+                                    {% url 'home' as home_url %}
+                                    <ul class="nav navbar-nav{% if request.get_full_path == home_url %} no-border{% endif %}">
+                                        {% for category in categories %}
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ category.get_absolute_url }}">
+                                                    {{ category }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
 
-            </header>
+                        <div class="col-3">
+                            <div class="row no-gutters">
+                                <div class="col-6 col-md-6 hidden-sm-down">
+                                    <ul class="float-right">
+                                        {% if user.is_authenticated %}
+                                            {% if user.is_staff %}
+                                                <li>
+                                                    <a href="{% url "dashboard:index" %}" target="_blank"
+                                                       rel="noopener">
+                                                        {% trans "Dashboard" context "Main navigation item" %}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                            <li>
+                                                <a href="{% url "profile:details" %}">
+                                                    {% trans "Your account" context "Main navigation item" %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url "account_logout" %}">
+                                                    {% trans "Log out" context "Main navigation item" %}</a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url "account_signup" %}">
+                                                    {% trans "Register" context "Main navigation item" %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url "account_login" %}">
+                                                    {% trans "Log in" context "Main navigation item" %}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-md-6 col-sm-12">
+                                    <ul class="float-right">
+                                        <li class="navbar__brand__cart float-right">
+                                            <a class="cart__icon" href="{% url "cart:index" %}">
+                                <span class="cart-label hidden-sm-down">
+                                    {% trans "Your Cart" context "Main navigation item" %}
+                                </span>
+                                                <div class="navbar__brand__cart__icon">
+                                                    <svg data-src="{% static "images/cart.svg" %}" width="35"
+                                                         height="30"/>
+                                                </div>
+                                <span class="badge {% if not cart_counter %}empty{% endif %}">
+                                  {% if cart_counter %}
+                                      {{ cart_counter }}
+                                  {% else %}
+                                      0
+                                  {% endif %}
+                                </span>
+                                            </a>
+                                            <div class="cart-dropdown hidden-md-down">
+                                                {% include 'cart-dropdown.html' %}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
         {% endblock %}
         <div class="container maincontent">
             {% if messages %}
