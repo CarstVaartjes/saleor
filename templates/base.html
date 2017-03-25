@@ -10,7 +10,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="{% block meta_description %}{% endblock %}">
-        <meta name="author" content="{% trans "Mirumee Software" context "Meta author text" %}">
+        <meta name="author" content="{% trans "The Happy Baker" context "Meta author text" %}">
         {% endblock meta %}
         {% include 'favicon.html' %}
         {% render_bundle 'vendor' 'css' %}
@@ -76,7 +76,7 @@
                           <span>{% trans "menu" context "Hamburger button text" %}</span>
                         </div>
                         <a href="/">
-                          <svg data-src="{% static "images/saleor_logo.svg" %}" height="38px" width="176px" />
+                             <img class="header_logo" src="{% static "images/happy_baker/happy-baker.png" %}" alt="The Happy Baker"/>
                         </a>
                       </div>
                       <div class="col-2 col-md-4 navbar__search static">

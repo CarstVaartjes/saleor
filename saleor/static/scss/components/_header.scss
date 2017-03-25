@@ -84,6 +84,10 @@
           vertical-align: top;
         }
     }
+    .header_logo{
+      width: 128px;
+      height: 128px;
+    }
     svg path {
       fill: $body-color;
     }
@@ -105,7 +109,7 @@
     }
   }
   &__brand {
-    background-color: $light-gray;
+    //background-color: $light-gray;
     @include media-breakpoint-down(sm) {
       position: fixed;
       top: 0;
@@ -194,7 +198,7 @@
       .navigation {
         position: fixed;
         left: -180px;
-        top: 75px;
+        top: 180px;
         height: 100vh;
         width: 180px;
         z-index: 3;
