@@ -180,6 +180,7 @@
           display: inline-block;
         }
         .navbar__brand__cart__icon {
+          position: relative;
           display: inline-block;
           svg {
             vertical-align: middle;
@@ -188,7 +189,7 @@
         .badge {
           position: absolute;
           right: -20px;
-          top: 20px;
+          top: -10px;
           background-color: $blue;
           border-radius: 100px;
           color: $white;
@@ -198,9 +199,6 @@
           line-height: 2;
           &.empty {
             background-color: $darken-gray;
-          }
-          @include media-breakpoint-down(sm) {
-            right: 0;
           }
         }
       }

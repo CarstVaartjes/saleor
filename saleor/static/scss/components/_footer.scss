@@ -38,6 +38,6 @@
 
 .maincontent {
   @include media-breakpoint-down(sm) {
-    margin-top: $global-margin * 11;
+    margin-top: $global-margin * 12;
   }
 }
