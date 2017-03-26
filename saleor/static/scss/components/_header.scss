@@ -1,6 +1,11 @@
+.nav-list{
+  margin: auto 0;
+}
+
 .navigation {
+  padding: 1rem;
   ul {
-    border-bottom: 1px solid $gray;
+    //border-bottom: 1px solid $gray;
     margin-bottom: $global-margin;
     display: block;
     text-align: center;
@@ -97,6 +102,10 @@
           vertical-align: top;
         }
     }
+    .header_logo{
+      width: 128px;
+      height: 128px;
+    }
     svg path {
       fill: $body-color;
     }
@@ -140,10 +149,11 @@
         display: block;
         border: solid 1px transparent;
         border-radius: 4px 4px 0 0;
-        padding: $global-padding * 2;
-        position: absolute;
-        right: 0;
-        top:0;
+        padding-top: $global-padding * 2;
+        //padding: $global-padding * 2;
+        //position: absolute;
+        //right: 0;
+        //top:0;
         z-index: 4;
         @include media-breakpoint-down(sm) {
           position: relative;
@@ -177,7 +187,7 @@
         }
         .badge {
           position: absolute;
-          right: 20px;
+          right: -20px;
           top: 20px;
           background-color: $blue;
           border-radius: 100px;
@@ -203,34 +213,33 @@
     }
   }
   &__menu {
-    @include media-breakpoint-down(sm) {
-      .navigation {
-        position: fixed;
-        left: -180px;
-        top: 75px;
-        height: 100vh;
-        width: 180px;
-        z-index: 3;
-        background-color: $white;
-        padding-left: 0;
-        padding-right: $global-padding;
-        padding-top: $global-padding * 2;
-        transition: 0.3s ease-in-out;
-        ul {
+    @extend .navigation;
+    .navigation_hidden {
+      position: fixed;
+      left: -180px;
+      top: 180px;
+      height: 100vh;
+      width: 180px;
+      z-index: 3;
+      background-color: $white;
+      padding-left: 0;
+      padding-right: $global-padding;
+      padding-top: $global-padding * 2;
+      transition: 0.3s ease-in-out;
+      ul {
+        text-align: left;
+        .nav-item {
+          width: 100%;
           text-align: left;
-          .nav-item {
-            width: 100%;
-            text-align: left;
-            a {
-              padding: $global-padding / 2 $global-padding;
-              font-size: 1rem;
-            }
+          a {
+            padding: $global-padding / 2 $global-padding;
+            font-size: 1rem;
           }
         }
-        &.open {
-          left: 0;
-          box-shadow: 1px 1px 10px 1px $gray;
-        }
+      }
+      &.open {
+        left: 0;
+        box-shadow: 1px 1px 10px 1px $gray;
       }
     }
   }
