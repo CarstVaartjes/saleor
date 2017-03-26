@@ -1,6 +1,11 @@
+.nav-list{
+  margin: auto 0;
+}
+
 .navigation {
+  padding: 1rem;
   ul {
-    border-bottom: 1px solid $gray;
+    //border-bottom: 1px solid $gray;
     margin-bottom: $global-margin;
     display: block;
     text-align: center;
@@ -21,7 +26,7 @@
         transition: 0.3s;
         text-transform: uppercase;
         display: inline-block;
-        padding: $global-padding * 1.5;
+        padding: $global-padding * 0.5;
         font-size: 1.5rem;
         &:hover {
           color: rgba($body-color, 0.6);
@@ -131,10 +136,11 @@
         display: block;
         border: solid 1px transparent;
         border-radius: 4px 4px 0 0;
-        padding: $global-padding * 2;
-        position: absolute;
-        right: 0;
-        top:0;
+        padding-top: $global-padding * 2;
+        //padding: $global-padding * 2;
+        //position: absolute;
+        //right: 0;
+        //top:0;
         z-index: 4;
         @include media-breakpoint-down(sm) {
           position: relative;
@@ -168,7 +174,7 @@
         }
         .badge {
           position: absolute;
-          right: 20px;
+          right: -20px;
           top: 20px;
           background-color: $blue;
           border-radius: 100px;

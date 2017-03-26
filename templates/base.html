@@ -70,7 +70,7 @@
                 <div class="navbar__brand">
                   <div class="container">
                     <div class="row no-gutters">
-                      <div class="col-8 col-md-4 navbar__logo">
+                      <div class="col-10 col-md-2 navbar__logo">
                         <div class="menu-icon-mobile hidden-md-up navbar__brand__menu-toggle closed open">
                           <svg data-src="{% static "images/mobile_menu.svg" %}" width="28px" height="20px" />
                           <span>{% trans "menu" context "Hamburger button text" %}</span>
@@ -79,7 +79,7 @@
                              <img class="header_logo" src="{% static "images/happy_baker/happy-baker.png" %}" alt="The Happy Baker"/>
                         </a>
                       </div>
-                      <div class="col-2 col-md-4 navbar__search static">
+                      <div class="nav-list col-2 col-md-8 hidden-sm-down">
                         <nav class="navigation">
                           {% url 'home' as home_url %}
                           <ul class="nav navbar-nav" >
@@ -98,22 +98,22 @@
                           </ul>
                         </nav>
                       </div>
-                      <div class="col-2 col-md-4">
+                      <div class="col-2 col-md-2">
                         <div class="navbar__brand__cart float-right">
                           <a class="cart__icon" href="{% url "cart:index" %}">
                             <span class="cart-label hidden-sm-down">
                                 {% trans "Your Cart" context "Main navigation item" %}
                             </span>
                             <div class="navbar__brand__cart__icon">
-                              <svg data-src="{% static "images/cart.svg" %}" width="35" height="30" />
+                                <svg data-src="{% static "images/cart.svg" %}" width="35" height="30"/>
+                                <span class="badge {% if not cart_counter %}empty{% endif %}">
+                                  {% if cart_counter %}
+                                      {{ cart_counter }}
+                                  {% else %}
+                                      0
+                                  {% endif %}
+                                </span>
                             </div>
-                            <span class="badge {% if not cart_counter %}empty{% endif %}">
-                              {% if cart_counter %}
-                                {{ cart_counter }}
-                              {% else %}
-                                0
-                              {% endif %}
-                            </span>
                           </a>
                           <div class="cart-dropdown hidden-md-down">
                             {% include 'cart-dropdown.html' %}
