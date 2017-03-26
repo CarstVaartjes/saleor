@@ -89,7 +89,7 @@ def get_availability(product, discounts=None, local_currency=None):
         price_range_local = None
         discount_local_currency = None
 
-    is_available = product.is_in_stock() and product.is_available()
+    is_available = getattr(settings, 'NO_STOCK', False) or (product.is_in_stock() and product.is_available())
 
     return ProductAvailability(
         available=is_available,
