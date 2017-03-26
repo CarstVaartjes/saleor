@@ -235,6 +235,8 @@ class ProductVariant(models.Model, Item):
             raise InsufficientStock(self)
 
     def get_stock_quantity(self):
+        if getattr(settings, 'NO_STOCK', False):
+            return getattr(settings, 'MAX_CART_LINE_QUANTITY', 50)
         if not len(self.stock.all()):
             return 0
         return max([stock.quantity_available for stock in self.stock.all()])
