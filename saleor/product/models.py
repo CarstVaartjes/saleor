@@ -166,6 +166,8 @@ class Product(models.Model, ItemRange, index.Indexed):
         return slugify(smart_text(unidecode(self.name)))
 
     def is_in_stock(self):
+        if getattr(settings, 'NO_STOCK', False):
+            return True
         return any(variant.is_in_stock() for variant in self)
 
     def get_first_category(self):
@@ -260,6 +262,8 @@ class ProductVariant(models.Model, Item):
         return self.product.product_class.is_shipping_required
 
     def is_in_stock(self):
+        if getattr(settings, 'NO_STOCK', False):
+            return True
         return any(
             [stock.quantity_available > 0 for stock in self.stock.all()])
 
