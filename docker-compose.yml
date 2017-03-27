@@ -24,7 +24,7 @@ services:
       - ELASTICSEARCH_URL=http://search:9200/
       - OPENEXCHANGERATES_API_KEY
       - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=d%4g6aaz+t#$$^bt-9cm$szvoo2op_sx2r15-o^mb#n6#@3-fl
+      - SECRET_KEY=changeme
     depends_on:
       - db
       - redis

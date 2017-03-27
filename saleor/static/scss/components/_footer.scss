@@ -47,8 +47,9 @@
   }
 }
 
-.maincontent {
+  .maincontent {
   @include media-breakpoint-down(sm) {
-    margin-top: $global-margin * 12;
+    margin-top: $global-margin * 12; //test
+    overflow-x: hidden;
   }
 }

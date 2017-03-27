@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container general-info">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section">{% trans "Important Allergy Information" context "Homepage title" %}</h2>
+      <div class="section-content">
+        <p>{% trans "All of our products includes dairy, eggs, gluten." context "Homepage title" %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

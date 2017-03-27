@@ -1,6 +1,9 @@
 .home {
+  .home_cat{
+    padding-top: $global-margin;
+  }
   text-align: center;
-  padding-bottom: 3.5rem; //sep home sections
+  padding-bottom: 2.5rem; //sep home sections
   //color: $white;
   h1 {
     font-weight: 300;
@@ -97,4 +100,30 @@
       margin: $global-margin * 2 0;
     }
   }
+}
+
+
+.general-info{
+    margin-top: $global-margin;
+    .section-title{
+      margin-bottom: $global-margin;
+    }
+    img.img-fluid{
+      max-width: 100%;
+      height: auto;
+    }
+    .section{
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .section:after //small line for each section
+    {
+        content:' ';
+        display: block;
+        border: 1px solid $gray;
+        margin-top: $global-margin;
+    }
+    .section-content{
+      padding: $global-padding;
+    }
 }

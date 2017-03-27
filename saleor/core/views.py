@@ -20,19 +20,19 @@ def styleguide(request):
 
 def how_it_works(request):
     return TemplateResponse(
-        request, 'how_it_works.html',
+        request, 'happy_baker/how_it_works.html',
         {'parent': None})
 
 
 def about_me(request):
     return TemplateResponse(
-        request, 'about_me.html',
+        request, 'happy_baker/about_me.html',
         {'parent': None})
 
 
 def allergene_info(request):
     return TemplateResponse(
-        request, 'allergene_info.html',
+        request, 'happy_baker/allergene_info.html',
         {'parent': None})
 
 
