@@ -1,6 +1,15 @@
+body{
+  overflow-x: hidden;
+}
+
+.nav-list{
+  margin: auto 0;
+}
+
 .navigation {
+  padding: 1rem;
   ul {
-    border-bottom: 1px solid $gray;
+    //border-bottom: 1px solid $gray;
     margin-bottom: $global-margin;
     display: block;
     text-align: center;
@@ -21,7 +30,7 @@
         transition: 0.3s;
         text-transform: uppercase;
         display: inline-block;
-        padding: $global-padding * 1.5;
+        padding: $global-padding * 0.5;
         font-size: 1.5rem;
         &:hover {
           color: rgba($body-color, 0.6);
@@ -33,6 +42,19 @@
 }
 .navbar {
   padding: 0;
+
+  .logo_column{
+    text-align: center;
+    img{
+      max-width: 100%;
+      height: auto;
+    }
+
+  }
+  .navbar__menu{
+    margin: auto;
+  }
+
   @include media-breakpoint-down(sm) {
     svg {
       max-height: 30px;
@@ -84,6 +106,10 @@
           vertical-align: top;
         }
     }
+    .header_logo{
+      width: 128px;
+      height: 128px;
+    }
     svg path {
       fill: $body-color;
     }
@@ -127,10 +153,11 @@
         display: block;
         border: solid 1px transparent;
         border-radius: 4px 4px 0 0;
-        padding: $global-padding * 2;
-        position: absolute;
-        right: 0;
-        top:0;
+        padding-top: $global-padding * 2;
+        //padding: $global-padding * 2;
+        //position: absolute;
+        //right: 0;
+        //top:0;
         z-index: 4;
         @include media-breakpoint-down(sm) {
           position: relative;
@@ -157,6 +184,7 @@
           display: inline-block;
         }
         .navbar__brand__cart__icon {
+          position: relative;
           display: inline-block;
           svg {
             vertical-align: middle;
@@ -164,8 +192,8 @@
         }
         .badge {
           position: absolute;
-          right: 20px;
-          top: 20px;
+          right: -20px;
+          top: -10px;
           background-color: $blue;
           border-radius: 100px;
           color: $white;
@@ -175,9 +203,6 @@
           line-height: 2;
           &.empty {
             background-color: $darken-gray;
-          }
-          @include media-breakpoint-down(sm) {
-            right: 0;
           }
         }
       }
@@ -190,34 +215,34 @@
     }
   }
   &__menu {
-    @include media-breakpoint-down(sm) {
-      .navigation {
-        position: fixed;
-        left: -180px;
-        top: 75px;
-        height: 100vh;
-        width: 180px;
-        z-index: 3;
-        background-color: $white;
-        padding-left: 0;
-        padding-right: $global-padding;
-        padding-top: $global-padding * 2;
-        transition: 0.3s ease-in-out;
-        ul {
+    @extend .navigation;
+    padding: 0;
+    .navigation_hidden {
+      position: fixed;
+      left: -180px;
+      top: $global-margin * 10;
+      height: 100vh;
+      width: 180px;
+      z-index: 3;
+      background-color: $white;
+      padding-left: 0;
+      padding-right: $global-padding;
+      padding-top: $global-padding * 2;
+      transition: 0.3s ease-in-out;
+      ul {
+        text-align: left;
+        .nav-item {
+          width: 100%;
           text-align: left;
-          .nav-item {
-            width: 100%;
-            text-align: left;
-            a {
-              padding: $global-padding / 2 $global-padding;
-              font-size: 1rem;
-            }
+          a {
+            padding: $global-padding / 2 $global-padding;
+            font-size: 1rem;
           }
         }
-        &.open {
-          left: 0;
-          box-shadow: 1px 1px 10px 1px $gray;
-        }
+      }
+      &.open {
+        left: 0;
+        box-shadow: 1px 1px 10px 1px $gray;
       }
     }
   }

@@ -1,0 +1,23 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<div class="home">
+  <div class="row">
+    {% for category in categories %}
+    <div class="col-sm-4 home_cat home__cat{{ forloop.counter }}">
+      <div class="home--square">
+        <div class="home--content">
+          <div class="home--content-wrapper">
+            <div class="home--content-inner">
+                <h1>{{ category }}</h1>
+                <a class="btn btn-secondary home__button" href={{ category.get_absolute_url }}>
+                    {% trans "Shop now" context "Homepage action" %}
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%  endfor %}
+  </div>
+</div>
