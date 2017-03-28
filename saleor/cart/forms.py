@@ -13,7 +13,7 @@ class QuantityField(forms.IntegerField):
 
     def __init__(self, **kwargs):
         super(QuantityField, self).__init__(
-            min_value=0, max_value=settings.MAX_CART_LINE_QUANTITY,
+            min_value=0, max_value=kwargs.pop('max_qty', 0),
             initial=1, **kwargs)
 
 
@@ -23,7 +23,11 @@ class AddToCartForm(forms.Form):
     Allows selection of a product variant and quantity.
     The save method adds it to the cart.
     """
-    quantity = QuantityField(label=pgettext_lazy('Add to cart form field label', 'Quantity'))
+    max_qty = settings.MAX_CART_LINE_QUANTITY
+    if settings.MAX_CART_TOTAL_QUANTITY:
+        total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - self.cart.quantity
+        max_qty = min(max_qty, total_left_qty)
+    quantity = QuantityField(label=pgettext_lazy('Add to cart form field label', 'Quantity'), max_qty=max_qty)
     error_messages = {
         'not-available': pgettext_lazy(
             'Add to cart form error',
