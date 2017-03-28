@@ -4,38 +4,20 @@
 
 
 {% block content %}
-    <div class="home">
-      <div class="row">
-        <div class="col-sm-12 home__image1">
-          <div class="home--square" id="img_rotation">
-            <div class="home--content">
-              <div class="home--content-wrapper">
-                <div class="home--content-inner">
-                    &nbsp
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12 home__block1">
-          <div class="home--square">
-            <div class="home--content">
-              <div class="home--content-wrapper">
-                <div class="home--content-inner">
-                    <h1 style="color:black">{% trans "Welcome to the Happy Baker website!" context "Homepage title" %}</h1>
-                  <p style="color:black">{% trans "Homemade, artisan and fresh food is just a few clicks away…" context "Homepage title" %}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+  <div class="container home">
+    <div class="row">
+      <div class="col-12">
+        {% include 'happy_baker/_carousel.html' %}
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-12">
+        <h1 style="color:black">{% trans "Welcome to the Happy Baker website!" context "Homepage title" %}</h1>
+        <p style="color:black">{% trans "Homemade, artisan and fresh food is just a few clicks away…" context "Homepage title" %}</p>
+      </div>
+    </div>
     {% include 'happy_baker/_categories.html' %}
-
-
+  </div>
 
 {% endblock %}

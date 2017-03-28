@@ -127,3 +127,11 @@
       padding: $global-padding;
     }
 }
+
+//Experimental option!
+#happy-baker-carousel{
+  img{
+    width: 100vw;
+    height: 60vh;
+  }
+}
