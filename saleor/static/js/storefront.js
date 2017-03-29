@@ -60,7 +60,7 @@ $(document).ready((e) => {
 
   $toogleIcon.click((e) => {
     $mobileNav.toggleClass('open');
-    event.stopPropagation();
+    e.stopPropagation();
   });
   $(document).click((e) => {
     $mobileNav.removeClass('open');
@@ -363,23 +363,6 @@ $(document).ready(function() {
       styleGuideMenu.removeClass("fixed");
     }
   })
-
-  //Carrousel => TODO: replace it with something better as bootsrap carrousel or similar
-  //http://kenwheeler.github.io/slick/
-    var images = [
-        "/static/images/img_assortment_2.jpg",
-        "/static/images/img_cheesecake_1.jpg",
-        "/static/images/img_assortment_1.jpg"
-    ];
-
-    var i = 0;
-    setInterval(function() {
-            $("#img_rotation").css('background-image', 'url('+ images[i] + ')');
-            i = (i+1)%images.length;
-
-    }, 5000);
-
-
 });
 
 if ($.cookie('alert') === 'true') {

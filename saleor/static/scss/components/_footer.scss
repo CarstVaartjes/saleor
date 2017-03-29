@@ -1,7 +1,7 @@
 .footer {
-  //background-color: $gray;
+  background-color: $gray;
   padding: $global-padding * 2 0;
-  margin-top: $global-margin * 8;
+  margin-top: $global-margin * 1;
   @include media-breakpoint-down(xs) {
     text-align: center;
   }
@@ -24,20 +24,32 @@
       line-height: 2;
     }
   }
-  a {
-    transition: 0.3s;
-    &:hover {
-      text-decoration: none;
-      opacity: 0.6;
-    }
-    &.github-footer {
-      margin-right: $global-margin;
+  img.img-fluid{
+    max-width: 100%;
+    height: auto;
+  }
+  .social{
+    margin: auto 0;
+    a {
+      transition: 0.3s;
+      &:hover {
+        text-decoration: none;
+        opacity: 0.6;
+      }
+      display: block;
+      padding: $global-padding * 0.5;
+      float: right;
+      .social-icon{
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 }
 
-.maincontent {
+  .maincontent {
   @include media-breakpoint-down(sm) {
-    margin-top: $global-margin * 7;
+    margin-top: $global-margin * 12; //test
+    overflow-x: hidden;
   }
 }

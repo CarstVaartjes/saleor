@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container general-info">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section">{% trans "Ordering" context "Homepage title" %}</h2>
+      <div class="section-content">
+        <p>{% trans "We want to offer you only the best and freshest product." context "Homepage title" %}</p>
+        <p>{% trans "Your product is only made after your order is placed. If you order Monday to Friday before 12 pm you can pick it up the next day from 10 a.m. Sundays we are closed" context "Homepage title" %}</p>
+        <p>{% trans "Please note, we have a maximum amount of orders per day. You can check in our calendar the availability or even order in advance." context "Homepage title" %}</p>
+      </div>
+      <h2 class="section">{% trans "Payments" context "Homepage title" %}</h2>
+      <div class="section-content">
+        <p>{% trans "You can pay through ideal." context "Homepage title" %}</p>
+      </div>
+      <h2 class="section">{% trans "Pick up & Deliveries" context "Homepage title" %}</h2>
+      <div class="section-content">
+        <p>{% trans "Your product can be picked up in central Amstelveen." context "Homepage title" %}</p>
+        <p>{% trans "For   orders above 50 euro, delivery may be available in Amstelveen and surroundings. Please contact us for more information." context "Homepage title" %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
