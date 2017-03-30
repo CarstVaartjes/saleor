@@ -64,7 +64,9 @@ var config = {
       'jquery',
       'jquery.cookie',
       'react',
-      'react-relay'
+      'react-relay',
+      'moment',
+      'react-datetime'
     ]
   },
   output: output,
