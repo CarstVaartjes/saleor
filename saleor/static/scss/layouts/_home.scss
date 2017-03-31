@@ -9,6 +9,24 @@
     font-weight: 300;
     text-transform: uppercase;
   }
+
+  .greeting{
+    margin-top: $global-margin;
+  }
+
+  // Adjust header texts in small devices:
+  @include media-breakpoint-down(md) {
+    h1{
+      font-size: $font-size-h1/$font-size-reduction-factor;
+    }
+    h2{
+      font-size: $font-size-h2/$font-size-reduction-factor;
+    }
+    h3{
+      font-size: $font-size-h3/$font-size-reduction-factor;
+    }
+  }
+
   .btn {
     margin-top: $global-margin;
   }
@@ -133,5 +151,10 @@
   img{
     width: 100vw;
     height: 60vh;
+  }
+  @include media-breakpoint-down(md) {
+    img{
+      height: 30vh;
+    }
   }
 }
