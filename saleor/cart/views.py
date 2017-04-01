@@ -9,7 +9,7 @@ from django.template.response import TemplateResponse
 from ..core.utils import to_local_currency, get_user_shipping_country
 from ..product.models import ProductVariant
 from ..shipping.utils import get_shipment_options
-from .forms import ReplaceCartLineForm, CountryForm
+from .forms import ReplaceCartLineForm, CountryForm, DeliveryDateForm
 from .models import Cart
 from .utils import check_product_availability_and_warn, get_or_empty_db_cart
 
@@ -128,3 +128,13 @@ def summary(request, cart):
             'lines': [prepare_line_data(line) for line in cart.lines.all()]}
 
     return render(request, 'cart-dropdown.html', data)
+
+
+@get_or_empty_db_cart(cart_queryset=Cart.objects.for_display())
+def delivery_date_view(request, cart):
+    form = DeliveryDateForm(request.POST, cart=cart)
+    if form.is_valid():
+        form.save()
+        return JsonResponse({'success': 'ok'})
+    else:
+        return JsonResponse({'success': 'nok', 'errors': form.errors})

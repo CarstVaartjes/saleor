@@ -132,3 +132,26 @@ class CountryForm(forms.Form):
     def get_shipment_options(self):
         code = self.cleaned_data['country']
         return get_shipment_options(code)
+
+
+class DeliveryDateForm(forms.Form):
+    """
+    Validates the delivery date
+    """
+
+    delivery_date = forms.DateTimeField(required=True, input_formats=['%Y-%m-%dT%H:%M:%S.%fZ'])
+
+    def __init__(self, *args, **kwargs):
+        self.cart = kwargs.pop('cart')
+        super(DeliveryDateForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(DeliveryDateForm, self).clean()
+        delivery_date = cleaned_data.get('delivery_date')
+        if delivery_date is None:
+            return cleaned_data
+
+    def save(self):
+        """Updates cart delivery date"""
+        #self.cart.delivery_date = self.cleaned_data['date']
+        return True

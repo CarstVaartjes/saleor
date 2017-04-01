@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -18,6 +19,23 @@ var DeliveryDatePicker = React.createClass({
     handleChange: function (date) {
         this.setState({
             startDate: date
+        });
+        this.submitDate(date.toJSON());
+    },
+
+    submitDate: function(date){
+        $.ajax({
+          url: '/cart/delivery_date/',
+          type: 'POST',
+          data: {
+            delivery_date: date
+          },
+          success: () => {
+            console.log('delivery date success');
+          },
+          error: (response) => {
+            console.log(response);
+          }
         });
     },
 
