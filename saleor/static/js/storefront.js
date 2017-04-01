@@ -4,7 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 import SVGInjector from 'svg-injector-2';
-import DateTime from 'react-datetime';
+
+import DeliveryDatePicker from './components/DeliveryDatePicker';
 
 
 import variantPickerStore from './stores/variantPicker';
@@ -357,21 +358,15 @@ $cartLine.each(function() {
 // StyleGuide fixed menu
 
 $(document).ready(function() {
-  //
-  //console.log('Datetime: ', DateTime);
-  //ReactDOM.render(
-  //  React.createElement(DateTime, {
-  //    //viewMode: 'months',
-  //    //dateFormat: 'MMMM',
-  //    //isValidDate: function (current) {
-  //    //  return current.isBefore(DateTime.moment().startOf('month'));
-  //    //}
-  //  }),
-  //  document.getElementById('datetime')
-  //);
-  //console.log('After react dom!');
 
 
+  var dateControl = document.getElementById('delivery_date');
+  if(dateControl){
+      ReactDOM.render(
+        <DeliveryDatePicker />,
+        dateControl
+      );
+  }
 
   let styleGuideMenu = $('.styleguide__nav');
   $(window).scroll(function () {
