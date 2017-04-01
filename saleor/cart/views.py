@@ -12,6 +12,7 @@ from ..shipping.utils import get_shipment_options
 from .forms import ReplaceCartLineForm, CountryForm, DeliveryDateForm
 from .models import Cart
 from .utils import check_product_availability_and_warn, get_or_empty_db_cart
+from django.conf import settings
 
 
 @get_or_empty_db_cart(cart_queryset=Cart.objects.for_display())

@@ -62,6 +62,8 @@ class Cart(models.Model):
         max_length=32, choices=CartStatus.CHOICES, default=CartStatus.OPEN)
     created = models.DateTimeField(
         pgettext_lazy('Cart field', 'created'), auto_now_add=True)
+    delivery_date = models.DateTimeField(
+        pgettext_lazy('Cart field', 'delivery_date'), auto_now_add=True, editable=True)
     last_status_change = models.DateTimeField(
         pgettext_lazy('Cart field', 'last status change'), auto_now_add=True)
     user = models.ForeignKey(
@@ -198,6 +200,22 @@ class Cart(models.Model):
         grouper = (
             lambda p: 'physical' if p.is_shipping_required() else 'digital')
         return partition(self.lines.all(), grouper, ProductGroup)
+
+    def check_qty(self):
+        if not settings.MAX_CART_TOTAL_QUANTITY and not settings.MAX_DAY_QUANTITY:
+            return
+
+        max_qty = settings.MAX_CART_TOTAL_QUANTITY
+
+        if settings.MAX_DAY_QUANTITY:
+            pass
+
+        # set max_qty
+        if settings.MAX_CART_TOTAL_QUANTITY:
+            max_qty = settings.MAX_CART_LINE_QUANTITY
+            total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - cart.quantity
+            max_qty = min(max_qty, total_left_qty)
+            print(settings.MAX_CART_TOTAL_QUANTITY, cart.quantity, settings.MAX_CART_LINE_QUANTITY, max_qty)
 
 
 @python_2_unicode_compatible
