@@ -21,13 +21,6 @@ def index(request, cart):
     cart_lines = []
     check_product_availability_and_warn(request, cart)
 
-    # set max_qty
-    if settings.MAX_CART_TOTAL_QUANTITY:
-        max_qty = settings.MAX_CART_LINE_QUANTITY
-        total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - cart.quantity
-        max_qty = min(max_qty, total_left_qty)
-        print(settings.MAX_CART_TOTAL_QUANTITY, cart.quantity, settings.MAX_CART_LINE_QUANTITY, max_qty)
-
     for line in cart.lines.all():
         initial = {'quantity': line.get_quantity()}
         form = ReplaceCartLineForm(None, cart=cart, variant=line.variant,
