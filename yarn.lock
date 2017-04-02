@@ -2943,6 +2943,10 @@ modernizr@^3.2.0:
     requirejs "2.1.22"
     yargs "3.31.0"
 
+moment@^2.17.1:
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -3683,6 +3687,15 @@ rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
+react-datepicker@^0.44.0:
+  version "0.44.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.44.0.tgz#c09f28d3aa06e7ac97062f2af069e4c1db5d927d"
+  dependencies:
+    classnames "^2.2.5"
+    moment "^2.17.1"
+    react-onclickoutside "^5.9.0"
+    tether "^1.4.0"
+
 react-dom@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
@@ -3698,6 +3711,10 @@ react-inlinesvg@^0.5.5:
     fbjs "^0.8"
     httpplease "^0.16"
     once "^1.4"
+
+react-onclickoutside@^5.9.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-5.10.0.tgz#6831f1bd8683ce75f3f4f9821aa012919e907684"
 
 react-relay@^0.10.0:
   version "0.10.0"

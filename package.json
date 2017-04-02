@@ -30,6 +30,7 @@
     "modernizr": "^3.2.0",
     "query-string": "^4.3.1",
     "react": "^15.4.2",
+    "react-datepicker": "^0.44.0",
     "react-dom": "^15.4.2",
     "react-inlinesvg": "^0.5.5",
     "react-relay": "^0.10.0",

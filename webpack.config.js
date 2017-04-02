@@ -64,7 +64,8 @@ var config = {
       'jquery',
       'jquery.cookie',
       'react',
-      'react-relay'
+      'react-relay',
+      'react-datepicker'
     ]
   },
   output: output,

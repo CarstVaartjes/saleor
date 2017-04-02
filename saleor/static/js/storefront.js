@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 import SVGInjector from 'svg-injector-2';
 
+import DeliveryDatePicker from './components/DeliveryDatePicker';
+
+
 import variantPickerStore from './stores/variantPicker';
 
 import passwordIvisible from '../images/pass_invisible.svg';
@@ -355,6 +358,16 @@ $cartLine.each(function() {
 // StyleGuide fixed menu
 
 $(document).ready(function() {
+
+
+  var dateControl = document.getElementById('delivery_date');
+  if(dateControl){
+      ReactDOM.render(
+        <DeliveryDatePicker />,
+        dateControl
+      );
+  }
+
   let styleGuideMenu = $('.styleguide__nav');
   $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {

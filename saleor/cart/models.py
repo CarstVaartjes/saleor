@@ -201,11 +201,9 @@ class Cart(models.Model):
             lambda p: 'physical' if p.is_shipping_required() else 'digital')
         return partition(self.lines.all(), grouper, ProductGroup)
 
-    def check_qty(self):
+    def check_qty(self, when=None):
         if not settings.MAX_CART_TOTAL_QUANTITY and not settings.MAX_DAY_QUANTITY:
-            return
-
-        max_qty = settings.MAX_CART_TOTAL_QUANTITY
+            return False
 
         if settings.MAX_DAY_QUANTITY:
             pass
@@ -213,9 +211,12 @@ class Cart(models.Model):
         # set max_qty
         if settings.MAX_CART_TOTAL_QUANTITY:
             max_qty = settings.MAX_CART_LINE_QUANTITY
-            total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - cart.quantity
+            total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - self.quantity
             max_qty = min(max_qty, total_left_qty)
-            print(settings.MAX_CART_TOTAL_QUANTITY, cart.quantity, settings.MAX_CART_LINE_QUANTITY, max_qty)
+            print(settings.MAX_CART_TOTAL_QUANTITY, self.quantity, settings.MAX_CART_LINE_QUANTITY, max_qty)
+            if not max_qty:
+                return False
+        return True
 
 
 @python_2_unicode_compatible
