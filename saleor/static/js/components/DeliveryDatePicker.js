@@ -2,7 +2,7 @@ import $ from 'jquery';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-//import 'react-datepicker/dist/react-datepicker.css'; //TODO: add a css loader
+//import 'react-datepicker/dist/react-datepicker.css'; //TODO: add the styles using css loader
 
 /**
  * See https://hacker0x01.github.io/react-datepicker/
@@ -23,6 +23,20 @@ var DeliveryDatePicker = React.createClass({
         this.submitDate(date.toJSON());
     },
 
+    showValidationErrors: function(errorText){
+        var $deliveryDateErrors = $('#delivery_date_errors');
+        var $checkoutButton = $("#checkout_button");
+        if(errorText){
+            $checkoutButton.hide();
+            $deliveryDateErrors.html(errorText);
+            $deliveryDateErrors.show();
+        } else{
+            $checkoutButton.show();
+            $deliveryDateErrors.empty();
+            $deliveryDateErrors.hide();
+        }
+    },
+
     submitDate: function(date){
         $.ajax({
           url: '/cart/delivery_date/',
@@ -30,11 +44,20 @@ var DeliveryDatePicker = React.createClass({
           data: {
             delivery_date: date
           },
-          success: () => {
-            console.log('delivery date success');
+          success: (response) => {
+            if(response.success){
+                this.showValidationErrors();
+            } else{
+                var validationErrors = response.errors.delivery_date;
+                var errorText = "";
+                for(var i= 0, len=validationErrors.length; i < len; i++){
+                    errorText += validationErrors[i];
+                }
+                this.showValidationErrors(errorText);
+            }
           },
-          error: (response) => {
-            console.log(response);
+          error: () => {
+            this.showValidationErrors('Unexpected error updating date. Please try again later');
           }
         });
     },
@@ -46,23 +69,15 @@ var DeliveryDatePicker = React.createClass({
 
     render: function () {
         return <DatePicker
+            dateFormat="D/M/Y"
+            locale="en"
             minDate={moment()}
-            placeholderText="Select delivery date"
+            placeholderText="Enter Day/Month/Year"
             isClearable={true}
             selected={this.state.startDate}
             onChange={this.handleChange}/>;
     }
 
-    //render () {
-    //    return (
-    //        <button
-    //            className="datepicker-custom-input"
-    //            onClick={this.props.onClick}>
-    //            {this.props.value}
-    //        </button>
-    //    )
-    //}
 });
-
 
 export default DeliveryDatePicker;

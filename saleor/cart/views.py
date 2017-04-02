@@ -136,6 +136,6 @@ def delivery_date_view(request, cart):
     form = DeliveryDateForm(request.POST, cart=cart)
     if form.is_valid():
         form.save()
-        return JsonResponse({'success': 'ok'})
+        return JsonResponse({'success': True})
     else:
-        return JsonResponse({'success': 'nok', 'errors': form.errors})
+        return JsonResponse({'success': False, 'errors': form.errors})

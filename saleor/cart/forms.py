@@ -8,7 +8,6 @@ from django_countries.fields import LazyTypedChoiceField, countries
 from satchless.item import InsufficientStock
 from ..shipping.utils import get_shipment_options
 
-
 class QuantityField(forms.IntegerField):
 
     def __init__(self, **kwargs):
@@ -142,17 +141,31 @@ class DeliveryDateForm(forms.Form):
 
     delivery_date = forms.DateTimeField(required=True, input_formats=['%Y-%m-%dT%H:%M:%S.%fZ'])
 
+    error_messages = {
+        'insufficient-stock': pgettext_lazy(
+            'No stock available for the selected date',
+            'Sorry. There is no stock available for the selected date: {}'
+        )}
+
     def __init__(self, *args, **kwargs):
         self.cart = kwargs.pop('cart')
         super(DeliveryDateForm, self).__init__(*args, **kwargs)
 
-    def clean(self):
-        cleaned_data = super(DeliveryDateForm, self).clean()
-        delivery_date = cleaned_data.get('delivery_date')
-        if delivery_date is None:
-            return cleaned_data
+    def clean_delivery_date(self):
+        """
+        Checks if the delivery date is valid and if so, checks if there's enough stock for that date
+        Returns:
+
+        """
+        delivery_date = self.cleaned_data['delivery_date']
+        if not self.cart.check_qty(delivery_date):
+            msg = self.error_messages['insufficient-stock']
+            self.add_error('delivery_date', msg.format(delivery_date.strftime('%d/%m/%Y')))
+        return delivery_date
 
     def save(self):
         """Updates cart delivery date"""
-        #self.cart.delivery_date = self.cleaned_data['date']
+        self.cart.delivery_date = self.cleaned_data['delivery_date']
+        self.cart.save()
+        print('saved the new cart date: ', self.cart.delivery_date)
         return True

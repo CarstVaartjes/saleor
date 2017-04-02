@@ -94,7 +94,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <a href="{% url "checkout:login" %}" class="btn primary float-md-right">
+        <a id="checkout_button" href="{% url "checkout:login" %}" class="btn primary float-md-right">
           {% trans "Checkout" context "Cart primary action" %}
         </a>
       </div>
@@ -106,6 +106,7 @@
           <div class="deliveryform" data-csrf="{{ csrf_token }}">
 {#              <label>Select delivery date</label>#}
               <div id="delivery_date"></div>
+              <div id="delivery_date_errors" class="deliver_date_errors">here the errors</div>
           </div>
         </div>
       </div>
