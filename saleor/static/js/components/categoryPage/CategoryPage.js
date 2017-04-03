@@ -47,10 +47,10 @@ class CategoryPage extends Component {
   }
 
   clearFilters = () => {
-    this.props.relay.setVariables({ 
+    this.props.relay.setVariables({
       attributesFilter: [],
       minPrice: null,
-      maxPrice: null 
+      maxPrice: null
     });
   }
 
@@ -144,32 +144,8 @@ class CategoryPage extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4 col-lg-3">
-            <div className="product-filters">
-              <CategoryFilter category={category} />
-            </div>
-            {filtersMenu && (
-            <div>
-              <h2>
-                {pgettext('Category page filters', 'Filters')}
-                <span className="clear-filters float-right" onClick={this.clearFilters}>{pgettext('Category page filters', 'Clear filters')}</span>
-              </h2>
-              <div className="product-filters">
-                <ProductFilters
-                  attributes={attributes}
-                  checkedAttributes={variables.attributesFilter}
-                  onFilterChanged={this.updateAttributesFilter}
-                />
-                <PriceFilter
-                  onFilterChanged={this.updatePriceFilter}
-                  maxPrice={variables.maxPrice}
-                  minPrice={variables.minPrice}
-                />
-              </div>
-            </div>
-            )}
-          </div>
-          <div className="col-md-8 col-lg-9 category-list">
+
+          <div className="col-md-12 category-list">
             <div>
               <ProductList
                 onLoadMore={this.incrementProductsCount}

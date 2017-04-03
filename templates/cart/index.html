@@ -39,8 +39,8 @@
         <div class="row">
           <div class="col-7 cart__line__product">
             <a class="link--clean" href="{{ line.variant.get_absolute_url }}">
-              <img src="{% get_thumbnail line.variant.product.images.first.image method="crop" size="60x60" %}" 
-                   srcset="{% get_thumbnail line.variant.product.images.first.image method="crop" size="60x60" %} 1x, {% get_thumbnail line.variant.product.images.first.image method="crop" size="120x120" %} 2x" 
+              <img src="{% get_thumbnail line.variant.product.images.first.image method="crop" size="60x60" %}"
+                   srcset="{% get_thumbnail line.variant.product.images.first.image method="crop" size="60x60" %} 1x, {% get_thumbnail line.variant.product.images.first.image method="crop" size="120x120" %} 2x"
                    alt="">
               <p>{{ line.variant.product }}
                 <br><small>{{ line.variant }}</small></p>
@@ -104,9 +104,8 @@
       <div class="col-md-8 col-lg-6 col-xl-5">
         <div class="cart__delivery-info__list row">
           <div class="deliveryform" data-csrf="{{ csrf_token }}">
-{#              <label>Select delivery date</label>#}
               <div id="delivery_date"></div>
-              <div id="delivery_date_errors" class="deliver_date_errors">here the errors</div>
+              <div id="delivery_date_errors" class="deliver_date_errors">/div>
           </div>
         </div>
       </div>

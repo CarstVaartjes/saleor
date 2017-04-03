@@ -2,7 +2,7 @@ import $ from 'jquery';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-//import 'react-datepicker/dist/react-datepicker.css'; //TODO: add the styles using css loader
+import 'react-datepicker/dist/react-datepicker.css';
 
 /**
  * See https://hacker0x01.github.io/react-datepicker/
