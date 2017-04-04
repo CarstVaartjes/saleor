@@ -9,10 +9,13 @@
     <div class="col-12">
       <h2 class="section">{% trans "Important Allergy Information" context "Homepage title" %}</h2>
       <div class="section-content">
-        <p>{% trans "All of our products includes dairy, eggs, gluten." context "Homepage title" %}</p>
+        <p>{% trans "All of our products includes dairy and eggs. Standard products also contain gluten, but for cheesecakes we also have a gluten free variant available." context "Homepage title" %}</p>
+        <p>{% trans "Al onze producten bevatten zuivel en eieren. Standaard producten bevatten gluten, maar voor cheesecakes hebben we ook een glutenvrije variant." context "Homepage title" %}</p>
       </div>
     </div>
   </div>
 </div>
+
+        {% include 'happy_baker/_categories.html' %}
 
 {% endblock %}

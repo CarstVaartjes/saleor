@@ -14,8 +14,12 @@
     <div class="row">
       <div class="col-12 greeting">
         <h1>{% trans "Welcome to the Happy Baker website!" context "Homepage title" %}</h1>
-        <p>{% trans "Homemade, artisan and fresh food is just a few clicks away…" context "Homepage title" %}</p>
-      </div>
+          <p>{% trans "Artisan and fresh quiches, cheesecakes and other bakes are just few clicks away…" context "Homepage title" %}</br>
+              {% trans "Enjoy the experience!" context "Homepage title" %}
+          </p>
+          <p>{% trans "Ambachtelijke en verse quiches, cheesecakes en taarten zijn maar een paar clicks weg…" context "Homepage title" %}</br>
+              {% trans "Geniet ervan!" context "Homepage title" %}
+          </p>      </div>
     </div>
     {% include 'happy_baker/_categories.html' %}
   </div>

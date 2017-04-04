@@ -12,18 +12,19 @@
   </div>
   <div class="row">
     <div class="col-md-4 col-sm-12">
-      <img class="img-fluid" src="{% static "images/img_chef_1.jpg" %}" alt="Ale"/>
+      <img class="img-fluid" src="{% static "images/img_chef_5.jpg" %}" alt="Ale"/>
     </div>
     <div class="col-md-8 col-sm-12 section-content">
-      <p>{% trans "My name is Alessandra, my friends call me Ale. Please, call me Ale!" context "Homepage title" %}</p>
-      <p>{% trans "I started experimenting since a very young age with food. I always liked to cook, even when was a time I had no idea how to combine stuff." context "Homepage title" %}</p>
-      <p>{% trans "When I moved to Europe I started taking seriously the fact that if I wanted to eat like home, I need to cook it myself. I found out that I was really enjoying to recreate the home food without the receipt, to cook spontaneously." context "Homepage title" %}</p>
-      <p>{% trans "I arrived to the Netherlands 11 years ago for the love of a Dutch man. We met in Madrid in 2004 and then our story began." context "Homepage title" %}</p>
-      <p>{% trans "In Peru, when I come from, we believe food brings people together, and I really like to cook for family and friends. It is always a good excuse to having them around us." context "Homepage title" %}</p>
-      <p>{% trans "To bake birthday cakes for them and my own kids was the beginning of my baking passion." context "Homepage title" %}</p>
-      <p>{% trans "They always support the idea of me doing my own business and after some time thinking about it, is the Happy Baker born!" context "Homepage title" %}</p>
+      <p>{% trans "My name is Alessandra but I’m called Ale." context "Homepage title" %}</p>
+      <p>{% trans "I started experimenting from a very young age with food. I always liked to cook, even when I had no idea yet how to combine ingredients well." context "Homepage title" %}</p>
+      <p>{% trans "When I moved to Europe in 2002, I started to take more and more attention and interest in cooking. I found out that I was really enjoying to re-create food I had tried, without the original recipe, cooking spontaneously." context "Homepage title" %}</p>
+      <p>{% trans "I arrived to the Netherlands in 2006 for the love of a Dutch man. We met in Madrid in 2004 and then our story began." context "Homepage title" %}</p>
+      <p>{% trans "In Peru, where I come from, we believe that food brings people together, and I really enjoy to cook for my family and friends. It always is a good excuse to have them around us." context "Homepage title" %}</p>
+      <p>{% trans "Baking birthday cakes for my own kids and my friends, was the beginning of my passion for baking." context "Homepage title" %}</p>
+      <p>{% trans "Soon after, the Happy Baker was born!" context "Homepage title" %}</p>
     </div>
   </div>
 </div>
 
+    {% include 'happy_baker/_categories.html' %}
 {% endblock %}

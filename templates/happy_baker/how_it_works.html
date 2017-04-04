@@ -7,24 +7,34 @@
 <div class="container general-info">
   <div class="row">
     <div class="col-12">
+      <h2 class="section">{% trans "Our Products" context "Homepage title" %}</h2>
+      <div class="section-content">
+        <p>{% trans "The Happy Baker offers you a great alternative to make any party, celebration, lunch or dinner into a unique experience with delicious cheesecakes, quiches and bakes!" context "Homepage title" %}</p>
+        <p>{% trans "Biological eggs and only the best ingredients, turn into a high quality and delicious product." context "Homepage title" %}</p>
+      </div>
       <h2 class="section">{% trans "Ordering" context "Homepage title" %}</h2>
       <div class="section-content">
-        <p>{% trans "We want to offer you only the best and freshest product." context "Homepage title" %}</p>
-        <p>{% trans "Your product is only made after your order is placed. If you order Monday to Friday before 12 pm you can pick it up the next day from 10 a.m. Sundays we are closed" context "Homepage title" %}</p>
-        <p>{% trans "Please note, we have a maximum amount of orders per day. You can check in our calendar the availability or even order in advance." context "Homepage title" %}</p>
+        <p>{% trans "The Happy Baker wants to offer you only the best and most fresh products." context "Homepage title" %}</p>
+        <p>{% trans "Your product is only made after your order is placed. If you order Monday to Friday before 12 pm you can pick it up the next day from 9:30 a.m. Saturdays from 10 a.m. Sundays we are closed." context "Homepage title" %}</p>
+        <p>{% trans "Please note, we have a maximum amount of orders per day. When selecting the delivery date, it will notify you of the available capacity that is left for that day." context "Homepage title" %}</p>
       </div>
       <h2 class="section">{% trans "Payments" context "Homepage title" %}</h2>
       <div class="section-content">
-        <p>{% trans "You can pay through ideal." context "Homepage title" %}</p>
+        <p>{% trans "You can pay through ideal or credit card." context "Homepage title" %}</p>
       </div>
       <h2 class="section">{% trans "Pick up & Deliveries" context "Homepage title" %}</h2>
       <div class="section-content">
-        <p>{% trans "Your product can be picked up in central Amstelveen." context "Homepage title" %}</p>
-        <p>{% trans "For   orders above 50 euro, delivery may be available in Amstelveen and surroundings. Please contact us for more information." context "Homepage title" %}</p>
+          <p>{% trans "Your product can be picked up in central Amstelveen at the following hours:" context "Homepage title" %} </p>
+          <p>{% trans "Tuesday to Thursday from 9:30-11:30 and from 15:30- 19:30" context "Homepage title" %} </br>
+              {% trans "Friday from 9:30-11:30 and from 17:30-19:30)." context "Homepage title" %} </br>
+              {% trans "Saturday from 10:00-12:00." context "Homepage title" %} </p>
+          <p>{% trans "If you need it out of this times, please contact us." context "Homepage title" %}</p>
+        <p>{% trans "For orders above 75 euro, delivery may be available in Amstelveen and surroundings. Please contact us for more information." context "Homepage title" %}</p>
       </div>
     </div>
   </div>
 </div>
 
+        {% include 'happy_baker/_categories.html' %}
 
 {% endblock %}
