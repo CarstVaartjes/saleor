@@ -2,7 +2,7 @@ import $ from 'jquery';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-//import 'react-datepicker/dist/react-datepicker.css'; //TODO: add the styles using css loader
+import 'react-datepicker/dist/react-datepicker.css';
 
 /**
  * See https://hacker0x01.github.io/react-datepicker/
@@ -12,7 +12,7 @@ var DeliveryDatePicker = React.createClass({
 
     getInitialState: function () {
         return {
-            startDate: moment()
+            startDate: null  // force the user to select a date
         };
     },
 
@@ -20,7 +20,11 @@ var DeliveryDatePicker = React.createClass({
         this.setState({
             startDate: date
         });
-        this.submitDate(date.toJSON());
+        if(date)
+          this.submitDate(date.toJSON());
+        else{
+          this.showValidationErrors('Please, select a delivery date');
+        }
     },
 
     showValidationErrors: function(errorText){
@@ -62,6 +66,10 @@ var DeliveryDatePicker = React.createClass({
         });
     },
 
+    isWeekDayOrSaturday: function(date){
+        return date.day() != 0;
+    },
+
     propTypes: {
         onClick: React.PropTypes.func,
         value: React.PropTypes.string
@@ -75,6 +83,7 @@ var DeliveryDatePicker = React.createClass({
             placeholderText="Enter Day/Month/Year"
             isClearable={true}
             selected={this.state.startDate}
+            filterDate={this.isWeekDayOrSaturday}
             onChange={this.handleChange}/>;
     }
 

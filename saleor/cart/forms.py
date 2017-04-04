@@ -154,7 +154,7 @@ class DeliveryDateForm(forms.Form):
     def clean_delivery_date(self):
         """
         Checks if the delivery date is valid and if so, checks if there's enough stock for that date
-        Returns:
+        Returns: the cleaned datetime
 
         """
         delivery_date = self.cleaned_data['delivery_date']
@@ -167,5 +167,4 @@ class DeliveryDateForm(forms.Form):
         """Updates cart delivery date"""
         self.cart.delivery_date = self.cleaned_data['delivery_date']
         self.cart.save()
-        print('saved the new cart date: ', self.cart.delivery_date)
         return True

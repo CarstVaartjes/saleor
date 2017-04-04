@@ -36,6 +36,7 @@
     "react-relay": "^0.10.0",
     "select2": "^4.0.3",
     "sortablejs": "^1.5.0-rc1",
+    "style-loader": "^0.16.1",
     "svg-injector-2": "^2.0.35",
     "tether": "^1.4.0",
     "underscore": "^1.8.3"
@@ -54,7 +55,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-relay-plugin": "^0.10.0",
     "babel-relay-plugin-loader": "^0.10.0",
-    "css-loader": "^0.26.1",
+    "css-loader": "^0.28.0",
     "eslint": "^3.14.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
