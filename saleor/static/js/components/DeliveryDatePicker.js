@@ -66,8 +66,9 @@ var DeliveryDatePicker = React.createClass({
         });
     },
 
-    isWeekDayOrSaturday: function(date){
-        return date.day() != 0;
+    isPickupDay: function(date){
+	    var day = date.day();
+	    return day !== 0 && day !== 1;
     },
 
     propTypes: {
@@ -75,15 +76,24 @@ var DeliveryDatePicker = React.createClass({
         value: React.PropTypes.string
     },
 
+    get_min_date: function() {
+      var min_date = moment();
+      if (min_date.hour < 13)
+       {min_date.add(1, "days")}
+      else
+       {min_date.add(2, "days")};
+      return min_date;
+    },
+
     render: function () {
         return <DatePicker
             dateFormat="D/M/Y"
             locale="en"
-            minDate={moment()}
+            minDate={this.get_min_date()}
             placeholderText="Enter Day/Month/Year"
             isClearable={true}
             selected={this.state.startDate}
-            filterDate={this.isWeekDayOrSaturday}
+            filterDate={this.isPickupDay}
             onChange={this.handleChange}/>;
     }
 
