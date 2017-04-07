@@ -100,11 +100,9 @@
       </div>
     </div>
     <div class="cart__delivery-info">
-      <h3><small>{% trans "Select desired pickup date" context "Cart secondary title" %}</small></h3>
       <div class="col-md-8 col-lg-6 col-xl-5">
         <div class="cart__delivery-info__list row">
           <div class="deliveryform" data-csrf="{{ csrf_token }}">
-              <div id="delivery_date"></div>
               <div id="delivery_date_errors" class="deliver_date_errors">/div>
           </div>
         </div>
