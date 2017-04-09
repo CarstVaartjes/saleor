@@ -60,7 +60,7 @@ class Cart(models.Model):
     status = models.CharField(
         pgettext_lazy('Cart field', 'order status'),
         max_length=32, choices=CartStatus.CHOICES, default=CartStatus.OPEN)
-    created = models.DateTimeField(
+    created = models.DateField(
         pgettext_lazy('Cart field', 'created'), auto_now_add=True)
     delivery_date = models.DateTimeField(
         pgettext_lazy('Cart field', 'delivery_date'), auto_now_add=True, editable=True)

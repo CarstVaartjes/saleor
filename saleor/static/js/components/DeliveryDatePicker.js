@@ -21,7 +21,7 @@ var DeliveryDatePicker = React.createClass({
             startDate: date
         });
         if(date)
-          this.submitDate(date.toJSON());
+          this.submitDate(date.format('YYYY-MM-DD'));
         else{
           this.showValidationErrors('Please, select a delivery date');
         }
@@ -43,7 +43,7 @@ var DeliveryDatePicker = React.createClass({
 
     submitDate: function(date){
         $.ajax({
-          url: '/cart/delivery_date/',
+          url: '/cart/delivery_date_set/',
           type: 'POST',
           data: {
             delivery_date: date

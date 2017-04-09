@@ -143,7 +143,7 @@ class DeliveryDateForm(forms.Form):
     Validates the delivery date
     """
 
-    delivery_date = forms.DateTimeField(required=True, input_formats=['%Y-%m-%dT%H:%M:%S.%fZ'])
+    delivery_date = forms.DateField(required=True, input_formats=['%Y-%m-%d'])
 
     error_messages = {
         'insufficient-stock': pgettext_lazy(

@@ -53,7 +53,7 @@ class Order(models.Model, ItemSet, index.Indexed):
     created = models.DateTimeField(
         pgettext_lazy('Order field', 'created'),
         default=now, editable=False)
-    delivery_date = models.DateTimeField(
+    delivery_date = models.DateField(
         pgettext_lazy('Order field', 'delivery_date'), editable=False)
     last_status_change = models.DateTimeField(
         pgettext_lazy('Order field', 'last status change'),

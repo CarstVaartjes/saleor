@@ -139,7 +139,7 @@ def summary(request, cart):
 
 
 @get_or_empty_db_cart(cart_queryset=Cart.objects.for_display())
-def delivery_date_view(request, cart):
+def delivery_date_set(request, cart):
     form = DeliveryDateForm(request.POST, cart=cart)
     if form.is_valid():
         form.save()
