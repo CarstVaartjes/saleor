@@ -24,6 +24,7 @@ from ..product.models import Product
 from ..userprofile.models import Address
 from ..search import index
 from . import OrderStatus
+from collections import defaultdict
 
 
 class OrderManager(models.Manager):
@@ -226,6 +227,9 @@ class Order(models.Model, ItemSet, index.Indexed):
 
     def can_cancel(self):
         return self.status not in {OrderStatus.CANCELLED, OrderStatus.SHIPPED}
+
+    def get_total_quantity(self):
+        return sum([item.quantity for item in self.get_items()])
 
 
 class DeliveryGroup(models.Model, ItemSet):
@@ -488,3 +492,22 @@ class OrderNote(models.Model):
         return pgettext_lazy(
             'Order note str',
             'OrderNote for Order #%d' % self.order.pk)
+
+
+def create_not_available_datelist():
+    """
+    Checks if the delivery date is valid and if so, checks if there's enough stock for that date
+    Returns: the cleaned datetime
+
+    """
+    if not settings.MAX_DAY_QUANTITY:
+        return []
+
+    day_qty = defaultdict(int)
+    orders_all = Order.objects.all()
+    orders = orders_all.filter(status=OrderStatus.FULLY_PAID)
+    for order in orders:
+        day_qty[order.delivery_date] += order.get_total_quantity()
+
+    not_available_datelist = [k for k, v in day_qty.items() if v >= settings.MAX_DAY_QUANTITY]
+    return not_available_datelist

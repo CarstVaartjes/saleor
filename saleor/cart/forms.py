@@ -22,12 +22,13 @@ class AddToCartForm(forms.Form):
     Allows selection of a product variant and quantity.
     The save method adds it to the cart.
     """
-    max_qty = settings.MAX_CART_LINE_QUANTITY
-    if settings.MAX_CART_TOTAL_QUANTITY:
-        total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - self.cart.quantity
-        max_qty = min(max_qty, total_left_qty)
+    # max_qty = settings.MAX_CART_LINE_QUANTITY
+    # if settings.MAX_CART_TOTAL_QUANTITY:
+    #     total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - self.cart.quantity
+    #     max_qty = min(max_qty, total_left_qty)
 
-    quantity = QuantityField(label=pgettext_lazy('Add to cart form field label', 'Quantity'), max_qty=max_qty)
+    quantity = QuantityField(label=pgettext_lazy('Add to cart form field label', 'Quantity'),
+                             max_qty=settings.MAX_CART_LINE_QUANTITY)
     error_messages = {
         'not-available': pgettext_lazy(
             'Add to cart form error',

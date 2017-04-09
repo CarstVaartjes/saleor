@@ -202,6 +202,8 @@ class Cart(models.Model):
         return partition(self.lines.all(), grouper, ProductGroup)
 
     def check_qty(self, when=None):
+        return True
+
         if not settings.MAX_CART_TOTAL_QUANTITY and not settings.MAX_DAY_QUANTITY:
             return True
 

@@ -4,14 +4,14 @@ from django.conf import settings
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import pgettext_lazy
 from payments import PaymentStatus, RedirectNeeded
 
 from .forms import PaymentDeleteForm, PaymentMethodsForm, PasswordForm
-from .models import Order, Payment
+from .models import Order, Payment, create_not_available_datelist
 from .utils import check_order_status, attach_order_to_user
 from ..core.utils import get_client_ip
 from ..registration.forms import LoginForm
@@ -162,3 +162,12 @@ def connect_order_with_user(request, token):
             'storefront message',
             'You\'ve successfully connected order with your account'))
     return redirect('order:details', token=order.token)
+
+
+def not_available_datelist_retrieve(request):
+    datetx = {
+        'not_available_datelist': create_not_available_datelist(),
+    'succes': True
+    }
+    return JsonResponse(datetx)
+
