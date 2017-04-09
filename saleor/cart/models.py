@@ -203,7 +203,7 @@ class Cart(models.Model):
 
     def check_qty(self, when=None):
         if not settings.MAX_CART_TOTAL_QUANTITY and not settings.MAX_DAY_QUANTITY:
-            return False
+            return True
 
         if settings.MAX_DAY_QUANTITY:
             pass
@@ -216,6 +216,7 @@ class Cart(models.Model):
             print(settings.MAX_CART_TOTAL_QUANTITY, self.quantity, settings.MAX_CART_LINE_QUANTITY, max_qty)
             if not max_qty:
                 return False
+
         return True
 
 

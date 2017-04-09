@@ -26,7 +26,7 @@ from .forms import (CancelGroupForm, CancelItemsForm, CancelOrderForm,
 @staff_member_required
 def order_list(request):
     orders_all = Order.objects.prefetch_related(
-        'groups', 'payments', 'groups__items', 'user').all()
+        'groups', 'payments', 'groups__items', 'user').order_by('delivery_date').all()
     active_status = request.GET.get('status')
     if active_status:
         orders = orders_all.filter(status=active_status)

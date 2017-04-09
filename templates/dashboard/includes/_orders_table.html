@@ -19,7 +19,7 @@
           {% trans "Customer" context "Orders table header" %}
         </th>
         <th>
-          {% trans "Placed on" context "Orders table header" %}
+          {% trans "Pickup Date" context "Orders table header" %}
         </th>
         <th class="right-align">
           {% trans "Total" context "Orders table header" %}
@@ -43,7 +43,7 @@
             {{ order.user|default:guest }}
           </td>
           <td>
-            {{ order.created }}
+            {{ order.delivery_date }}
           </td>
           <td class="right-align">
             {% gross order.get_total html=True %}

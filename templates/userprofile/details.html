@@ -50,8 +50,8 @@
                 <div class="col-md-2 col-3"><small>
                   {% trans "Order" context "Recent orders column title" %}
                 </small></div>
-                <div class="col-md-3 hidden-sm-down"><small>
-                  {% trans "Date" context "Recent orders column title" %}
+                <div class="col-md-3"><small>
+                  {% trans "Pickup Date" context "Recent orders column title" %}
                 </small></div>
                 <div class="col-md-2 col-4 text-right"><small>
                   {% trans "Summary" context "Recent orders column title" %}
@@ -68,8 +68,8 @@
                   <div class="col-md-2 col-3">
                     {{ order }}
                   </div>
-                  <div class="col-md-3 hidden-sm-down">
-                    {{ order.created }}
+                  <div class="col-md-3">
+                    {{ order.delivery_date }}
                   </div>
                   <div class="col-md-2 col-4">
                     <span class="float-right">{% gross order.get_total html=True %}</span>
