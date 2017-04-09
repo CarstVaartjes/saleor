@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.translation import pgettext_lazy
 from payments import PaymentStatus
 
-from .models import Payment
+from .models import Payment, Order
 from ..registration.forms import SignupForm
 
 
@@ -47,3 +47,36 @@ class PasswordForm(SignupForm):
     def __init__(self, *args, **kwargs):
         super(PasswordForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget = forms.HiddenInput()
+
+
+class AvailableDateForm(forms.Form):
+    """
+    Validates the available dates
+    """
+
+    error_messages = {}
+
+    def __init__(self, *args, **kwargs):
+        super(AvailableDateForm, self).__init__(*args, **kwargs)
+
+    def create_available_datelist(self):
+        """
+        Checks if the delivery date is valid and if so, checks if there's enough stock for that date
+        Returns: the cleaned datetime
+
+        """
+        orders_all = Order.objects.prefetch_related(
+            'groups', 'payments', 'groups__items', 'user').all()
+        orders = orders_all.filter(status=active_status)
+
+        delivery_date = self.cleaned_data['delivery_date']
+        if not self.cart.check_qty(delivery_date):
+            msg = self.error_messages['insufficient-stock']
+            self.add_error('delivery_date', msg.format(delivery_date.strftime('%d/%m/%Y')))
+        return delivery_date
+
+    def save(self):
+        """Updates cart delivery date"""
+        self.cart.delivery_date = self.cleaned_data['delivery_date']
+        self.cart.save()
+        return True

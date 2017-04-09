@@ -71,6 +71,24 @@ var DeliveryDatePicker = React.createClass({
 	    return day !== 0 && day !== 1;
     },
 
+    availableDate: function(){
+        $.ajax({
+          url: '/order/available_date/',
+          type: 'POST',
+          data: {          },
+          success: (response) => {
+            if(response.success){
+              return response.exclude_list;
+            } else{
+              return [];
+            }
+          },
+          error: () => {
+            this.showValidationErrors('Unexpected error retrieving available dates. Please try again later');
+          }
+        });
+    },
+
     propTypes: {
         onClick: React.PropTypes.func,
         value: React.PropTypes.string

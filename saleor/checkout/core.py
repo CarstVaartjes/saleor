@@ -247,6 +247,7 @@ class Checkout(object):
             self.billing_address, is_billing=True)
 
         order_data = {
+            'delivery_date': self.cart.delivery_date,
             'language_code': get_language(),
             'billing_address': billing_address,
             'shipping_address': shipping_address,
