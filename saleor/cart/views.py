@@ -143,17 +143,15 @@ def delivery_date_set(request, cart):
     form = DeliveryDateForm(request.POST, cart=cart)
     if form.is_valid():
         form.save()
-        return JsonResponse({'success': True})
+        return JsonResponse({}, status=200)
     else:
-        return JsonResponse({'success': False, 'errors': form.errors})
+        return JsonResponse({'errors': form.errors}, status=500)
 
 
 @get_or_empty_db_cart(cart_queryset=Cart.objects.for_display())
 def delivery_date_retrieve(request, cart):
     datetx = {
-        'delivery_date': cart.delivery_date,
-    'succes': True
+        'delivery_date': cart.delivery_date
     }
-
-    return JsonResponse(datetx)
+    return JsonResponse(datetx, status=200)
 
