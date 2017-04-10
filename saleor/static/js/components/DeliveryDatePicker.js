@@ -6,13 +6,20 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 /**
  * See https://hacker0x01.github.io/react-datepicker/
+ * Note the next:
+ * Deprecation warning: value provided is not in a recognized RFC2822 or ISO format.
+ * moment construction falls back to js Date(), which is not reliable across all browsers and versions.
+ * Non RFC2822/ISO date formats are discouraged and will be removed in an upcoming major release.
+ * Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+ *
  */
 var DeliveryDatePicker = React.createClass({
     displayName: 'DeliveryDatePicker',
 
     getInitialState: function () {
         return {
-            startDate: null  // force the user to select a date
+          startDate: null,
+          excludeDates: null
         };
     },
 
@@ -48,12 +55,10 @@ var DeliveryDatePicker = React.createClass({
           data: {
             delivery_date: date
           },
-          success: (response) => {
-            if(response.success){
-                this.showValidationErrors();
-            } else{
-                var validationErrors = response.errors.delivery_date;
-                var errorText = "";
+          success: (response, status) => {
+            if(status !== 'success'){
+                let validationErrors = response.errors.delivery_date;
+                let errorText = "";
                 for(var i= 0, len=validationErrors.length; i < len; i++){
                     errorText += validationErrors[i];
                 }
@@ -66,70 +71,38 @@ var DeliveryDatePicker = React.createClass({
         });
     },
 
+  componentDidMount: function () {
+    /* This function is automatically called when the component is mounted
+       It will retrieve the current delivery date & available dates and will update the component status
+    */
+    var component = this;
+    // 1.- Set the initial date:
+    $.ajax({url: '/cart/delivery_date_retrieve/', type: 'POST'})
+      .done((response, status) => {
+        if (status === 'success') {
+          if (response.delivery_date) {
+            let parsedDate = moment(response.delivery_date, "YYYY-MM-DDTHH:mm:ss");
+            component.setState({'startDate': parsedDate});
+          }
+        }
+      }).fail(() => {});
+
+    // 2.- Set the available dates:
+    $.ajax({url: '/order/not_available_datelist_retrieve/', type: 'POST'})
+      .done((response, status) => {
+        if (status == 'success') {
+          let parsedDateList = [];
+          for (let exclude_date of response.not_available_datelist) {
+            parsedDateList.push(moment(exclude_date, "YYYY-MM-DDTHH:mm:ss"));
+          }
+          component.setState({'excludeDates': parsedDateList});
+        }
+      }).fail(() => {});
+  },
+
     isPickupDay: function(date){
 	    var day = date.day();
 	    return day !== 0 && day !== 1;
-    },
-
-    currentDate: function(){
-      $.ajax({
-        url: '/cart/delivery_date_retrieve/',
-        type: 'POST',
-        data: {          },
-        success: (response) => {
-          if(response.success){
-            console.log(response)
-            console.log(moment(response.delivery_date, "YYYY-MM-DDTHH:mm:ss"))
-            return moment();
-          } else{
-            return moment();
-          }
-        },
-        error: () => {
-          this.showValidationErrors('Unexpected error retrieving the current selected date. Please try again later');
-        }
-      });
-    },
-
-    notAvailableDate: function(){
-      $.ajax({
-        url: '/order/not_available_datelist_retrieve/',
-        type: 'POST',
-        data: {          },
-        success: (response) => {
-          if(response.success){
-            console.log(response);
-            let date_list = [];
-            for (let exclude_date of response.not_available_datelist) {
-              date_list.push(moment(exclude_date, "YYYY-MM-DDTHH:mm:ss"))
-            }
-            return date_list;
-          } else{
-            return [];
-          }
-        },
-        error: () => {
-          this.showValidationErrors('Unexpected error retrieving the not available dates. Please try again later');
-        }
-      });
-    },
-
-    availableDate: function(){
-        $.ajax({
-          url: '/order/available_date/',
-          type: 'POST',
-          data: {          },
-          success: (response) => {
-            if(response.success){
-              return response.exclude_list;
-            } else{
-              return [];
-            }
-          },
-          error: () => {
-            this.showValidationErrors('Unexpected error retrieving available dates. Please try again later');
-          }
-        });
     },
 
     propTypes: {
@@ -159,6 +132,7 @@ var DeliveryDatePicker = React.createClass({
             minDate={this.get_min_date}
             placeholderText="Enter Day/Month/Year"
             isClearable={true}
+            excludeDates={this.state.excludeDates}
             selected={this.state.startDate}
             filterDate={this.isPickupDay}
             onChange={this.handleChange}/>;
