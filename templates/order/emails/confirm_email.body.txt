@@ -5,5 +5,13 @@
 Thank you for your order. To see your payment details please visit:
 {{ payment_url }}
 
+The order can be picked up at {{ delivery_date.date_field.day }}-{{ delivery_date.date_field.month }}-{{ delivery_date.date_field.year }} at:
+
+Bleriotlaan 1
+1185 HE  Amstelveen
+
+If you have any questions, do not hesitate to contact us.
+
 Sincerely,
-Saleor Team{% endblocktrans %}{% endblock %}
+
+The Happy Baker{% endblocktrans %}{% endblock %}

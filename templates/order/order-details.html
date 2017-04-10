@@ -51,8 +51,8 @@
       <div class="row">
         <div class="col-md-6 col-9">
           <a class="link--clean" href="{{ item_line.product.get_absolute_url }}">
-            <img src="{% product_first_image item_line.product size="60x60" method="crop" %}" 
-            srcset="{% product_first_image item_line.product size="60x60" method="crop" %} 1x, {% product_first_image item_line.product size="120x120" method="crop" %} 2x" 
+            <img src="{% product_first_image item_line.product size="60x60" method="crop" %}"
+            srcset="{% product_first_image item_line.product size="60x60" method="crop" %} 1x, {% product_first_image item_line.product size="120x120" method="crop" %} 2x"
             class="float-left">
             <p>{{ item_line.product }}<br>
               <small>{{ item_line.product_name }}</small></p>
@@ -118,4 +118,60 @@
       </div>
     </div>
   </div>
+  <div class="order-details__total">
+    <div class="row">
+      <div class="col-8 order-details__table-footer">
+        <div class="total">
+          <h3>{% trans "Total VAT" context "Order details total text" %}</h3>
+        </div>
+      </div>
+      <div class="col-4">
+        <p class="float-right">{% gross order.total_tax html=True %}</p>
+      </div>
+    </div>
+  </div>
 {% endfor %}
+
+  <div class="order">
+    <div class="row">
+      <div class="col-12">
+        <div class="total">
+          <h3>Pickup Information</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="total">
+        <p class="total">The pickup date is {{ order.delivery_date }}</p>
+          <p>The order can be picked up at:<br>
+            Bleriotlaan 1<br>
+          1185 HE  Amstelveen<br>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="total">
+          <h3>Invoice Information</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="total">
+         <p class="total">
+            Ale's Keuken <br>
+            Bleriotlaan 1<br>
+            1185 HE Amstelveen<br>
+            E. alcassar@gmail.com<br>
+            T. +31 (0)646738368<br>
+            KvK nr. 68032978<br>
+            BTW nr. NL261060181B01<br>
+         </p>
+        </div>
+      </div>
+  </div>
+</div>
+  </div>

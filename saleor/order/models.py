@@ -175,7 +175,7 @@ class Order(models.Model, ItemSet, index.Indexed):
         email = self.get_user_current_email()
         payment_url = build_absolute_uri(
             reverse('order:details', kwargs={'token': self.token}))
-        context = {'payment_url': payment_url}
+        context = {'payment_url': payment_url, 'delivery_date': self.delivery_date}
 
         emailit.api.send_mail(
             email, context, 'order/emails/confirm_email',
@@ -212,7 +212,7 @@ class Order(models.Model, ItemSet, index.Indexed):
     @total.setter
     def total(self, price):
         self.total_net = price
-        self.total_tax = Price(price.tax, currency=price.currency)
+        self.total_tax = price - (price / 1.06) #  Price(price.tax, currency=price.currency)
 
     def get_subtotal_without_voucher(self):
         if self.get_items():
