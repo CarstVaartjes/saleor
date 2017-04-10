@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.translation import pgettext_lazy
 from payments import PaymentStatus
 
-from .models import Payment
+from .models import Payment, Order, OrderStatus
 from ..registration.forms import SignupForm
 
 
@@ -47,3 +47,46 @@ class PasswordForm(SignupForm):
     def __init__(self, *args, **kwargs):
         super(PasswordForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget = forms.HiddenInput()
+
+
+class CheckAvailableQtyForm(forms.Form):
+    """
+    Validates the available qty for the delivery date
+    """
+
+    delivery_date = forms.DateField(required=True, input_formats=['%Y-%m-%d'])
+
+    error_messages = {
+        'no-date': pgettext_lazy(
+            'No selected date',
+            'Sorry. There is no selected date'
+        )}
+
+    def __init__(self, *args, **kwargs):
+        super(CheckAvailableQtyForm, self).__init__(*args, **kwargs)
+
+    def check_date(self):
+        """
+        Checks if the delivery date is valid and if so, checks if there's enough stock for that date
+        Returns: the cleaned datetime
+
+        """
+        if not self.delivery_date:
+            return {'max_qty': -1, 'used_qty': -1, 'available_qty': 0}
+
+        if settings.MAX_DAY_QUANTITY and settings.MAX_CART_TOTAL_QUANTITY:
+            max_qty = min(settings.MAX_DAY_QUANTITY, settings.MAX_CART_TOTAL_QUANTITY)
+        elif settings.MAX_CART_TOTAL_QUANTITY:
+            max_qty = settings.MAX_CART_TOTAL_QUANTITY
+        elif settings.MAX_DAY_QUANTITY:
+            max_qty = settings.MAX_DAY_QUANTITY
+        else:
+            return {'max_qty': -1, 'used_qty': -1, 'available_qty': 0}
+
+        orders_all = Order.objects.all()
+        orders = orders_all.filter(delivery_date=date, status=OrderStatus.FULLY_PAID)
+        used_qty = 0
+        for order in orders:
+            used_qty += order.get_total_quantity()
+
+        return {'max_qty': max_qty, 'used_qty': used_qty, 'available_qty': max_qty-used_qty}

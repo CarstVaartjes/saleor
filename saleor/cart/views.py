@@ -155,3 +155,11 @@ def delivery_date_retrieve(request, cart):
     }
     return JsonResponse(datetx, status=200)
 
+
+@get_or_empty_db_cart(cart_queryset=Cart.objects.for_display())
+def total_qty_retrieve(request, cart):
+    datetx = {
+        'cart_total_qty': cart.total_qty()
+    }
+    return JsonResponse(datetx, status=200)
+

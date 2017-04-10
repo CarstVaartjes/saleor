@@ -201,25 +201,10 @@ class Cart(models.Model):
             lambda p: 'physical' if p.is_shipping_required() else 'digital')
         return partition(self.lines.all(), grouper, ProductGroup)
 
-    def check_qty(self, when=None):
-        return True
-
-        if not settings.MAX_CART_TOTAL_QUANTITY and not settings.MAX_DAY_QUANTITY:
-            return True
-
-        if settings.MAX_DAY_QUANTITY:
-            pass
-
-        # set max_qty
-        if settings.MAX_CART_TOTAL_QUANTITY:
-            max_qty = settings.MAX_CART_LINE_QUANTITY
-            total_left_qty = settings.MAX_CART_TOTAL_QUANTITY - self.quantity
-            max_qty = min(max_qty, total_left_qty)
-            print(settings.MAX_CART_TOTAL_QUANTITY, self.quantity, settings.MAX_CART_LINE_QUANTITY, max_qty)
-            if not max_qty:
-                return False
-
-        return True
+    def total_qty(self):
+        subtotals = [item.get_quantity()
+                     for item in self.lines.all()]
+        return sum(subtotals)
 
 
 @python_2_unicode_compatible

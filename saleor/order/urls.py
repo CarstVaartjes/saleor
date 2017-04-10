@@ -18,4 +18,6 @@ urlpatterns = [
         views.connect_order_with_user, name='connect-order-with-user'),
     url(r'^not_available_datelist_retrieve/$', views.not_available_datelist_retrieve,
         name='not_available_datelist_retrieve'),
+    url(r'^check_available_quantity/$', views.check_available_quantity,
+        name='check_available_quantity'),
 ]

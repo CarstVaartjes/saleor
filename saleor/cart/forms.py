@@ -163,9 +163,10 @@ class DeliveryDateForm(forms.Form):
 
         """
         delivery_date = self.cleaned_data['delivery_date']
-        if not self.cart.check_qty(delivery_date):
-            msg = self.error_messages['insufficient-stock']
-            self.add_error('delivery_date', msg.format(delivery_date.strftime('%d/%m/%Y')))
+        # Cannot refer to orders as they create an import cycle
+        # if not self.cart.check_qty(delivery_date):
+        #     msg = self.error_messages['insufficient-stock']
+        #     self.add_error('delivery_date', msg.format(delivery_date.strftime('%d/%m/%Y')))
         return delivery_date
 
     def save(self):

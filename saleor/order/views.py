@@ -10,7 +10,7 @@ from django.template.response import TemplateResponse
 from django.utils.translation import pgettext_lazy
 from payments import PaymentStatus, RedirectNeeded
 
-from .forms import PaymentDeleteForm, PaymentMethodsForm, PasswordForm
+from .forms import PaymentDeleteForm, PaymentMethodsForm, PasswordForm, CheckAvailableQtyForm
 from .models import Order, Payment, create_not_available_datelist
 from .utils import check_order_status, attach_order_to_user
 from ..core.utils import get_client_ip
@@ -174,4 +174,22 @@ def not_available_datelist_retrieve(request):
     #     'not_available_datelist': [datetime.datetime.now() + datetime.timedelta(days=2)]
     # }
     return JsonResponse(datetx, status=200)
+
+
+def check_available_quantity(request):
+    qtx = check_available_quantity()
+    return JsonResponse(qtx, status=200)
+
+
+def check_available_quantity(request):
+    """
+    Checks if the delivery date is valid and if so, checks if there's enough stock for that date
+    Returns: the cleaned datetime
+
+    """
+    form = CheckAvailableQtyForm(request.POST)
+    if form.is_valid():
+        return JsonResponse(form.check_date(), status=200)
+    else:
+        return JsonResponse({'errors': form.errors}, status=500)
 

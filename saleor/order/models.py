@@ -511,3 +511,7 @@ def create_not_available_datelist():
 
     not_available_datelist = [k for k, v in day_qty.items() if v >= settings.MAX_DAY_QUANTITY]
     return not_available_datelist
+
+
+
+
