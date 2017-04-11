@@ -17,18 +17,36 @@ var DeliveryDatePicker = React.createClass({
     displayName: 'DeliveryDatePicker',
 
     getInitialState: function () {
+        this.listenCartQuantityChanges();
         return {
           startDate: null,
           excludeDates: null
         };
     },
 
-    handleChange: function (date) {
-        this.setState({
-            startDate: date
+    listenCartQuantityChanges: function(){
+        /*
+           event listener to validate the selected date when the cart item quantities are refreshed
+         */
+        let $cartLine = $('.cart__line');
+        let component = this;
+        $cartLine.each(function() {
+          let $quantityInput = $(this).find('#id_quantity');
+          $(this).on('change', $quantityInput, (e) => {
+              let currentDate = component.props.delivery_date;
+              if(currentDate){
+                  component.submitDate(currentDate)
+              }
+          });
         });
-        if(date)
-          this.submitDate(date.format('YYYY-MM-DD'));
+    },
+
+    handleChange: function (newDate) {
+        this.setState({
+            startDate: newDate
+        });
+        if(newDate)
+          this.submitDate(newDate);
         else{
           this.showValidationErrors('Please, select a delivery date');
         }
@@ -48,26 +66,83 @@ var DeliveryDatePicker = React.createClass({
         }
     },
 
-    submitDate: function(date){
+    checkStock: function(date, callback){
+        let component = this;
         $.ajax({
+          url: '/cart/total_qty_retrieve/',
+          type: 'POST',
+          data: {
+            delivery_date: date.format('YYYY-MM-DD')
+          }
+        }).done((response, status)=>{
+            let cartTotalQty = response.cart_total_qty;
+            $.ajax({
+                url: '/order/check_available_quantity/',
+                type: 'POST',
+                data: {
+                    delivery_date: date.format('YYYY-MM-DD')
+                }
+            }).done((response, status)=>{
+                if(status !== 'success'){
+                    let validationErrors = response.errors.delivery_date;
+                    let errorText = "";
+                    for(var i= 0, len=validationErrors.length; i < len; i++){
+                        errorText += validationErrors[i];
+                    }
+                    component.showValidationErrors(errorText);
+                } else{
+                    let availableQty = response.available_qty;
+                    if(cartTotalQty >= 0){
+                        //console.log('carttotal: ', cartTotalQty);
+                        //console.log('available: ', availableQty);
+                        if(cartTotalQty > availableQty){
+                            component.showValidationErrors('sorry, the maximum available for this day is '
+                                + availableQty + ' units');
+                        }else{
+                            callback();
+                        }
+                    }
+                }
+            }).fail(() => {
+                component.showValidationErrors('Unexpected error updating date. Please try again later');
+            });
+        }).fail(()=>{
+            component.showValidationErrors('Unexpected error updating date. Please try again later');
+        });
+    },
+
+    setDeliveryDate: function(date){
+      let component = this;
+      $.ajax({
           url: '/cart/delivery_date_set/',
           type: 'POST',
           data: {
-            delivery_date: date
+            delivery_date: date.format('YYYY-MM-DD')
           },
           success: (response, status) => {
+            component.props.delivery_date = date;
             if(status !== 'success'){
                 let validationErrors = response.errors.delivery_date;
                 let errorText = "";
                 for(var i= 0, len=validationErrors.length; i < len; i++){
                     errorText += validationErrors[i];
                 }
-                this.showValidationErrors(errorText);
+                component.showValidationErrors(errorText);
+            } else{
+                component.showValidationErrors(); // clear validation errors
             }
           },
           error: () => {
-            this.showValidationErrors('Unexpected error updating date. Please try again later');
+            component.props.delivery_date = date;
+            component.showValidationErrors('Unexpected error updating date. Please try again later');
           }
+      });
+    },
+
+    submitDate: function(newDate){
+        let component = this;
+        this.checkStock(newDate, () => {
+            component.setDeliveryDate(newDate)
         });
     },
 
@@ -83,6 +158,7 @@ var DeliveryDatePicker = React.createClass({
           if (response.delivery_date) {
             let parsedDate = moment(response.delivery_date, "YYYY-MM-DDTHH:mm:ss");
             component.setState({'startDate': parsedDate});
+            component.props.delivery_date = parsedDate;
           }
         }
       }).fail(() => {});

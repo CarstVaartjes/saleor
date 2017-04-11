@@ -71,7 +71,8 @@ class CheckAvailableQtyForm(forms.Form):
         Returns: the cleaned datetime
 
         """
-        if not self.delivery_date:
+        delivery_date = self.cleaned_data['delivery_date']
+        if not delivery_date:
             return {'max_qty': -1, 'used_qty': -1, 'available_qty': 0}
 
         if settings.MAX_DAY_QUANTITY and settings.MAX_CART_TOTAL_QUANTITY:
@@ -84,7 +85,7 @@ class CheckAvailableQtyForm(forms.Form):
             return {'max_qty': -1, 'used_qty': -1, 'available_qty': 0}
 
         orders_all = Order.objects.all()
-        orders = orders_all.filter(delivery_date=date, status=OrderStatus.FULLY_PAID)
+        orders = orders_all.filter(delivery_date=delivery_date, status=OrderStatus.FULLY_PAID)
         used_qty = 0
         for order in orders:
             used_qty += order.get_total_quantity()
