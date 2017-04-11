@@ -192,7 +192,7 @@ var DeliveryDatePicker = React.createClass({
       if (min_date.hour() < 13)
        {min_date.add(1, "days")}
       else
-       {min_date.add(2, "days")};
+       {min_date.add(2, "days")}
       // check if we are not setting the date for a sunday or monday
       if (min_date.day() == 0)
        {min_date.add(2, "days")}
