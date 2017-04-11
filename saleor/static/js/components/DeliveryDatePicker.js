@@ -17,7 +17,6 @@ var DeliveryDatePicker = React.createClass({
     displayName: 'DeliveryDatePicker',
 
     getInitialState: function () {
-        this.listenCartQuantityChanges();
         return {
           startDate: null,
           excludeDates: null
@@ -150,6 +149,7 @@ var DeliveryDatePicker = React.createClass({
     /* This function is automatically called when the component is mounted
        It will retrieve the current delivery date & available dates and will update the component status
     */
+    this.listenCartQuantityChanges();
     var component = this;
     // 1.- Set the initial date:
     $.ajax({url: '/cart/delivery_date_retrieve/', type: 'POST'})
