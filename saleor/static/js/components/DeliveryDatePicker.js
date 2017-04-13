@@ -188,7 +188,7 @@ var DeliveryDatePicker = React.createClass({
 
     get_min_date: function() {
       // before 13:00, the next day is possible, if not, two days later
-      var min_date = moment();
+      let min_date = moment();
       if (min_date.hour() < 13)
        {min_date.add(1, "days")}
       else
@@ -205,7 +205,7 @@ var DeliveryDatePicker = React.createClass({
         return <DatePicker
             dateFormat="D/M/Y"
             locale="en"
-            minDate={this.get_min_date}
+            minDate={this.get_min_date()}
             placeholderText="Enter Day/Month/Year"
             isClearable={true}
             excludeDates={this.state.excludeDates}
