@@ -168,11 +168,6 @@ def not_available_datelist_retrieve(request):
     datetx = {
         'not_available_datelist': create_not_available_datelist()
     }
-    # Testing the service with hardcoded data TODO: remove the next comments
-    # import datetime
-    # datetx = {
-    #     'not_available_datelist': [datetime.datetime.now() + datetime.timedelta(days=2)]
-    # }
     return JsonResponse(datetx, status=200)
 
 
