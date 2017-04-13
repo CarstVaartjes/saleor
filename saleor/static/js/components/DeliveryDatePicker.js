@@ -119,7 +119,6 @@ var DeliveryDatePicker = React.createClass({
             delivery_date: date.format('YYYY-MM-DD')
           },
           success: (response, status) => {
-            component.props.delivery_date = date;
             if(status !== 'success'){
                 let validationErrors = response.errors.delivery_date;
                 let errorText = "";
@@ -132,7 +131,6 @@ var DeliveryDatePicker = React.createClass({
             }
           },
           error: () => {
-            component.props.delivery_date = date;
             component.showValidationErrors('Unexpected error updating date. Please try again later');
           }
       });
@@ -140,6 +138,7 @@ var DeliveryDatePicker = React.createClass({
 
     submitDate: function(newDate){
         let component = this;
+        component.props.delivery_date = newDate;
         this.checkStock(newDate, () => {
             component.setDeliveryDate(newDate)
         });
