@@ -65,47 +65,49 @@ var DeliveryDatePicker = React.createClass({
         }
     },
 
+    totalCartQuantity: function(){
+        let $cartLine = $('.cart__line');
+        let component = this;
+        let total_qty = 0;
+        $cartLine.each(function() {
+          let $quantityInput = $(this).find('#id_quantity');
+          total_qty += $quantityInput.val();
+          });
+        return total_qty
+    },
+
     checkStock: function(date, callback){
         let component = this;
+        let cartTotalQty = this.totalCartQuantity();
+
         $.ajax({
-          url: '/cart/total_qty_retrieve/',
-          type: 'POST',
-          data: {
-            delivery_date: date.format('YYYY-MM-DD')
-          }
+            url: '/order/check_available_quantity/',
+            type: 'POST',
+            data: {
+                delivery_date: date.format('YYYY-MM-DD')
+            }
         }).done((response, status)=>{
-            let cartTotalQty = response.cart_total_qty;
-            $.ajax({
-                url: '/order/check_available_quantity/',
-                type: 'POST',
-                data: {
-                    delivery_date: date.format('YYYY-MM-DD')
+            if(status !== 'success'){
+                let validationErrors = response.errors.delivery_date;
+                let errorText = "";
+                for(var i= 0, len=validationErrors.length; i < len; i++){
+                    errorText += validationErrors[i];
                 }
-            }).done((response, status)=>{
-                if(status !== 'success'){
-                    let validationErrors = response.errors.delivery_date;
-                    let errorText = "";
-                    for(var i= 0, len=validationErrors.length; i < len; i++){
-                        errorText += validationErrors[i];
-                    }
-                    component.showValidationErrors(errorText);
-                } else{
-                    let availableQty = response.available_qty;
-                    if(cartTotalQty >= 0){
-                        //console.log('carttotal: ', cartTotalQty);
-                        //console.log('available: ', availableQty);
-                        if(cartTotalQty > availableQty){
-                            component.showValidationErrors('sorry, the maximum available for this day is '
-                                + availableQty + ' units');
-                        }else{
-                            callback();
-                        }
+                component.showValidationErrors(errorText);
+            } else{
+                let availableQty = response.available_qty;
+                if(cartTotalQty >= 0){
+                    //console.log('carttotal: ', cartTotalQty);
+                    //console.log('available: ', availableQty);
+                    if(cartTotalQty > availableQty){
+                        component.showValidationErrors('sorry, the maximum available for this day is '
+                            + availableQty + ' units');
+                    }else{
+                        callback();
                     }
                 }
-            }).fail(() => {
-                component.showValidationErrors('Unexpected error updating date. Please try again later');
-            });
-        }).fail(()=>{
+            }
+        }).fail(() => {
             component.showValidationErrors('Unexpected error updating date. Please try again later');
         });
     },

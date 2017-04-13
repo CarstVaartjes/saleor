@@ -25,6 +25,7 @@ from ..userprofile.models import Address
 from ..search import index
 from . import OrderStatus
 from collections import defaultdict
+from ..vacation.vacation import vacation_list
 
 
 class OrderManager(models.Manager):
@@ -510,6 +511,7 @@ def create_not_available_datelist():
         day_qty[order.delivery_date] += order.get_total_quantity()
 
     not_available_datelist = [k for k, v in day_qty.items() if v >= settings.MAX_DAY_QUANTITY]
+    not_available_datelist = list(set(not_available_datelist + vacation_list))
     return not_available_datelist
 
 

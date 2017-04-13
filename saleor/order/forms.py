@@ -5,6 +5,7 @@ from payments import PaymentStatus
 
 from .models import Payment, Order, OrderStatus
 from ..registration.forms import SignupForm
+from ..vacation.vacation import vacation_list
 
 
 class PaymentMethodsForm(forms.Form):
@@ -71,8 +72,9 @@ class CheckAvailableQtyForm(forms.Form):
         Returns: the cleaned datetime
 
         """
+
         delivery_date = self.cleaned_data['delivery_date']
-        if not delivery_date:
+        if not delivery_date or delivery_date in vacation_list:
             return {'max_qty': -1, 'used_qty': -1, 'available_qty': 0}
 
         if settings.MAX_DAY_QUANTITY and settings.MAX_CART_TOTAL_QUANTITY:
