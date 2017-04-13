@@ -1,4 +1,6 @@
-Thank you for your payment at The Happy Baker!
+{% load i18n %}
+
+{% block content %}Thank you for your payment at The Happy Baker!
 
 To see your order and payment details please click here: {{ payment_url }}
 
@@ -34,3 +36,4 @@ Veel plezier met je aankoop, ik hoop je snel weer te zien!
 Met vriendelijke groet,
 
 Ale, The Happy Baker
+{% endblock %}

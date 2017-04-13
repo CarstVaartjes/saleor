@@ -157,8 +157,14 @@ var DeliveryDatePicker = React.createClass({
         if (status === 'success') {
           if (response.delivery_date) {
             let parsedDate = moment(response.delivery_date, "YYYY-MM-DDTHH:mm:ss");
+            //check if the date is not before the minimum date
+            let minDate = component.get_min_date();
+            if (parsedDate < minDate) {
+              parsedDate = minDate;
+            }
             component.setState({'startDate': parsedDate});
             component.props.delivery_date = parsedDate;
+            this.submitDate(parsedDate);
           }
         }
       }).fail(() => {});

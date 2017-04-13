@@ -212,7 +212,7 @@ class Order(models.Model, ItemSet, index.Indexed):
     @total.setter
     def total(self, price):
         self.total_net = price
-        self.total_tax = price - (price / 1.06) #  Price(price.tax, currency=price.currency)
+        self.total_tax = price.net - (price.net / Decimal(1.06)) #  Price(price.tax, currency=price.currency)
 
     def get_subtotal_without_voucher(self):
         if self.get_items():
