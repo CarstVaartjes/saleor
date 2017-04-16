@@ -86,6 +86,10 @@ class Order(models.Model, ItemSet, index.Indexed):
         pgettext_lazy('Order field', 'total tax'),
         currency=settings.DEFAULT_CURRENCY, max_digits=12, decimal_places=2,
         blank=True, null=True)
+    total_vat = PriceField(
+        pgettext_lazy('Order field', 'total vat'),
+        currency=settings.DEFAULT_CURRENCY, max_digits=12, decimal_places=2,
+        blank=True, null=True)
     voucher = models.ForeignKey(
         Voucher, null=True, related_name='+', on_delete=models.SET_NULL,
         verbose_name=pgettext_lazy('Order field', 'voucher'))
@@ -213,7 +217,8 @@ class Order(models.Model, ItemSet, index.Indexed):
     @total.setter
     def total(self, price):
         self.total_net = price
-        self.total_tax = price.net - (price.net / Decimal(1.06)) #  Price(price.tax, currency=price.currency)
+        self.total_tax = Price(price.tax, currency=price.currency)
+        self.total_vat = price.net - (price.net / Decimal(1.06))
 
     def get_subtotal_without_voucher(self):
         if self.get_items():

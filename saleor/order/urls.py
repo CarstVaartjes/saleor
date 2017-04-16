@@ -27,11 +27,9 @@ def stripe_source_callback(request):
     except TypeError:
         return HttpResponseBadRequest()
     # Verify the event by fetching it from Stripe
-    print('event_id: ' + event_json["id"])
     event = stripe.Event.retrieve(event_json["id"])
     # Now retrieve the payment
     payment_id = event.data.object.metadata.payment_id
-    print('payment_id: ' + event_json["id"])
     # retrieve the class
     payments = Payment.objects.all()
     try:
