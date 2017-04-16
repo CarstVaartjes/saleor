@@ -5,7 +5,7 @@ from ..core import TOKEN_PATTERN
 from . import views
 from django.views.decorators.csrf import csrf_exempt
 from payments_stripe_sources import StripeSourcesProvider
-from .models import Order, Payment, PaymentStatus
+from .models import Payment
 
 import stripe
 import json
@@ -35,7 +35,7 @@ def stripe_source_callback(request):
         # ignore
         return
     # now charge
-    provider.charge({}, payment)  # yes using the {} for self is horrible and i need to check this ;)
+    provider.charge(None, payment)  # yes using the {} for self is horrible and i need to check this ;)
 
 
 urlpatterns = [
