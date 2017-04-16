@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 from django.conf.urls import url
-
+from django.conf import settings
+from django.http.response import HttpResponseBadRequest, HttpResponse
 from ..core import TOKEN_PATTERN
 from . import views
 from django.views.decorators.csrf import csrf_exempt
-from payments_stripe_sources import StripeSourcesProvider
 from .models import Payment
+from payments_stripe_sources import StripeSourcesProvider
 
 import stripe
 import json
@@ -19,10 +20,12 @@ def stripe_source_callback(request):
     :param request: 
     :return: 
     """
-    provider = StripeSourcesProvider
-    stripe.api_key = provider.secret_key
+    stripe.api_key = settings.STRIPE_SECRET_KEY
     # Retrieve the request's body and parse it as JSON
-    event_json = json.loads(request.body)
+    try:
+        event_json = json.loads(request.body)
+    except TypeError:
+        return HttpResponseBadRequest()
     # Verify the event by fetching it from Stripe
     event = stripe.Event.retrieve(event_json["id"])
     # Now retrieve the payment
@@ -33,9 +36,10 @@ def stripe_source_callback(request):
         payment = payments.get(id=payment_id)
     except Payment.DoesNotExist:
         # ignore
-        return
+        return HttpResponseBadRequest()
     # now charge
-    provider.charge(None, payment)  # yes using the {} for self is horrible and i need to check this ;)
+    StripeSourcesProvider.charge(None, payment)  # yes using the None for self is horrible and i need to check this ;)
+    return HttpResponse()
 
 
 urlpatterns = [
