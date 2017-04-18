@@ -4,7 +4,7 @@
 {% load bootstrap_form from bootstrap3 %}
 
 {% block forms %}
-    <h3>{% trans "Shipping address" context "Checkout shipping address title" %}</h3>
+    <h3>{% trans "Shipping address (please note that only pickup is available for the moment)" context "Checkout shipping address title" %}</h3>
     {% include "userprofile/snippets/address-short.html" with address=checkout.shipping_address only %}
     <p><a href="{% url 'checkout:shipping-address' %}">{% trans "Select other address" %}</a></p>
     <hr>
