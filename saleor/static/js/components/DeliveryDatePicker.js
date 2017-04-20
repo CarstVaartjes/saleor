@@ -97,8 +97,8 @@ var DeliveryDatePicker = React.createClass({
             } else{
                 let availableQty = response.available_qty;
                 if(cartTotalQty >= 0){
-                    //console.log('carttotal: ', cartTotalQty);
-                    //console.log('available: ', availableQty);
+                    console.log('carttotal: ', cartTotalQty);
+                    console.log('available: ', availableQty);
                     if(cartTotalQty > availableQty){
                         component.showValidationErrors('sorry, the maximum available for this day is '
                             + availableQty + ' units');
