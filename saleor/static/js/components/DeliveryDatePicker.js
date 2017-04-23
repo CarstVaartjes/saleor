@@ -157,15 +157,38 @@ var DeliveryDatePicker = React.createClass({
       .done((response, status) => {
         if (status === 'success') {
           if (response.delivery_date) {
-            let parsedDate = moment(response.delivery_date, "YYYY-MM-DDTHH:mm:ss");
+            let parsedDate = moment(response.delivery_date, "YYYY-MM-DDTHH:mm:ss").startOf('day');
             //check if the date is not before the minimum date
             let minDate = component.get_min_date();
+            // console.log('Retrieved date: ' + parsedDate.format('YYYY/MM/DD'));
+            // console.log('Min date: ' + minDate.format('YYYY/MM/DD'));
             if (parsedDate < minDate) {
               parsedDate = minDate;
             }
-            component.setState({'startDate': parsedDate});
+            console.log('Set date: ' + parsedDate.format('YYYY/MM/DD'));
+            // check excluded days
+            $.ajax({url: '/order/not_available_datelist_retrieve/', type: 'POST'})
+            .done((response, status) => {
+              if (status == 'success') {
+                for (let exclude_date of response.not_available_datelist) {
+                  let parsed_exclude_date = moment(exclude_date, "YYYY-MM-DDTHH:mm:ss").startOf('day');
+                  // console.log('excluded date: ' + parsed_exclude_date.format('YYYY/MM/DD'));
+                  if (parsedDate.isSame(parsed_exclude_date)) {
+                    parsedDate = parsedDate.add(1, 'days');
+                    // console.log('Added day: ' + parsedDate.format('YYYY/MM/DD'));
+                  }
+                }
+                component.setState({'startDate': parsedDate});
             component.props.delivery_date = parsedDate;
             this.submitDate(parsedDate);
+            component.forceUpdate();
+              }
+            }).fail(() => {
+              component.setState({'startDate': parsedDate});
+            component.props.delivery_date = parsedDate;
+            this.submitDate(parsedDate);
+            component.forceUpdate();
+            });
           }
         }
       }).fail(() => {});
@@ -176,7 +199,7 @@ var DeliveryDatePicker = React.createClass({
         if (status == 'success') {
           let parsedDateList = [];
           for (let exclude_date of response.not_available_datelist) {
-            parsedDateList.push(moment(exclude_date, "YYYY-MM-DDTHH:mm:ss"));
+            parsedDateList.push(moment(exclude_date, "YYYY-MM-DDTHH:mm:ss").startOf('day'));
           }
           component.setState({'excludeDates': parsedDateList});
         }
@@ -195,7 +218,7 @@ var DeliveryDatePicker = React.createClass({
 
     get_min_date: function() {
       // before 13:00, the next day is possible, if not, two days later
-      let min_date = moment();
+      let min_date = moment().startOf('day');
       if (min_date.hour() < 13)
        {min_date.add(1, "days")}
       else
