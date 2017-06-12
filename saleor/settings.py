@@ -255,14 +255,26 @@ PAYMENT_HOST = get_host
 
 PAYMENT_MODEL = 'order.Payment'
 
+STRIPE_SECRET_KEY = 'sk_test_Xuw3JjmqfccZAsIRuBDw201e'
+STRIPE_PUBLIC_KEY = 'pk_test_RILJDdVNqZakmDoBes8yxvvh'
+
 PAYMENT_VARIANTS = {
-    'default': ('payments.dummy.DummyProvider', {})}
+    'default': ('payments_stripe_sources.StripeSourcesProvider', {
+        'secret_key': STRIPE_SECRET_KEY,
+        'public_key': STRIPE_PUBLIC_KEY,
+        'name': 'The Happy Baker'}),
+    'credit_card': ('payments.stripe.StripeProvider', {
+        'secret_key': STRIPE_SECRET_KEY,
+        'public_key': STRIPE_PUBLIC_KEY,
+        'name': 'The Happy Baker'}),
+}
+
+CHECKOUT_PAYMENT_CHOICES = [('default', 'Ideal'), ('credit_card', 'Credit Card')]
+
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
-CHECKOUT_PAYMENT_CHOICES = [
-    ('default', 'Dummy provider')]
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'}
