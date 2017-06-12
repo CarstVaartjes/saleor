@@ -255,8 +255,8 @@ PAYMENT_HOST = get_host
 
 PAYMENT_MODEL = 'order.Payment'
 
-STRIPE_SECRET_KEY = 'sk_test_Xuw3JjmqfccZAsIRuBDw201e'
-STRIPE_PUBLIC_KEY = 'pk_test_RILJDdVNqZakmDoBes8yxvvh'
+STRIPE_SECRET_KEY = ''
+STRIPE_PUBLIC_KEY = ''
 
 PAYMENT_VARIANTS = {
     'default': ('payments_stripe_sources.StripeSourcesProvider', {
