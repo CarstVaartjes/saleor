@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container general-info">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section">{% trans "Important Allergy Information" context "Homepage title" %}</h2>
+      <div class="section-content">
+        <p>{% trans "All of our products includes dairy and eggs. Standard products also contain gluten, but for cheesecakes we also have a gluten free variant available. While stringent precautions are taken, one should assume that contact with peanuts, tree nuts, wheat, eggs, milk, sesame and other allergens is possible." context "Homepage title" %}</p>
+        <p>{% trans "Al onze producten bevatten zuivel en eieren. Standaard producten bevatten gluten, maar voor cheesecakes hebben we ook een glutenvrije variant. Hoewel er strenge voorzorgsmaatregelen worden genomen, moet worden aangenomen dat contact met pinda's, noten, tarwe, eieren, melk, sesam en andere allergenen mogelijk is." context "Homepage title" %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        {% include 'happy_baker/_categories.html' %}
+
+{% endblock %}
