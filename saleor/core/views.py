@@ -30,9 +30,9 @@ def about_me(request):
         {'parent': None})
 
 
-def allergic_info(request):
+def allergy_info(request):
     return TemplateResponse(
-        request, 'happy_baker/allergic_info.html',
+        request, 'happy_baker/allergy_info.html',
         {'parent': None})
 
 

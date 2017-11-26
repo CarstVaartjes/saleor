@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^style-guide/', views.styleguide, name='styleguide'),
     url(r'^how_it_works$', views.how_it_works, name='how_it_works'),
     url(r'^about_me$', views.about_me, name='about_me'),
-    url(r'^allergic_info$', views.allergic_info, name='allergic_info'),
+    url(r'^allergy_info$', views.allergy_info, name='allergy_info'),
 ]
