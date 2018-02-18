@@ -1,9 +1,6 @@
 import datetime as dt
 
 vacation_list = \
-    [dt.date(2017, 4, 21) + dt.timedelta(days=x) for x in range(0, 5)] + \
-    [dt.date(2017, 5, 6) + dt.timedelta(days=x) for x in range(0, 1)] + \
-    [dt.date(2017, 6, 21) + dt.timedelta(days=x) for x in range(0, 7)] + \
-    [dt.date(2017, 6, 30) + dt.timedelta(days=x) for x in range(0, 2)] + \
-    [dt.date(2017, 8, 4) + dt.timedelta(days=x) for x in range(0, 8)] + \
-    [dt.date(2017, 8, 11) + dt.timedelta(days=x) for x in range(0, 22)]
+    [dt.date(2018, 2, 24) + dt.timedelta(days=x) for x in range(0, 4)] + \
+    [dt.date(2018, 3, 9) + dt.timedelta(days=x) for x in range(0, 2)] + \
+    [dt.date(2018, 3, 15) + dt.timedelta(days=x) for x in range(0, 3)]
